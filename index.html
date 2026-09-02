@@ -145,6 +145,16 @@
   .result-bar { grid-column: 1 / -1; height: 6px; border-radius: 3px; background: var(--green-wash); overflow: hidden; }
   .result-bar i { display: block; height: 100%; background: var(--green); border-radius: 3px; transition: width .4s ease; }
   #voteresults .empty { font-size: 13px; color: var(--ink-soft); margin: 0; }
+  .result-group-title { font-size: 12px; font-weight: 700; letter-spacing: .1em; color: var(--green-deep); margin: 12px 0 2px; }
+  .result-group-title:first-child { margin-top: 0; }
+
+  .sec-head {
+    font-family: "Shippori Mincho", serif; font-size: 20px; font-weight: 700;
+    letter-spacing: .06em; margin: 34px 0 4px; color: var(--ink);
+    padding-left: 12px; border-left: 4px solid var(--green);
+  }
+  .sec-note { font-size: 13px; color: var(--ink-soft); margin: 0 0 16px; }
+  .gmark { color: var(--gold); font-weight: 700; }
 </style>
 
 <div class="wrap">
@@ -152,21 +162,24 @@
     <div class="eyebrow">明治大学 駿河台キャンパス周辺</div>
     <h1>神保町ランチ会議</h1>
     <div class="conds">
-      <span class="cond">9/5（土）12:30ごろ</span>
-      <span class="cond">6名</span>
-      <span class="cond">明大から徒歩7分圏</span>
+      <span class="cond">9/5（土）6名</span>
+      <span class="cond">昼 12:30ごろ・神保町</span>
+      <span class="cond">夜 18:00・渋谷</span>
       <span class="cond">チェーン店なし</span>
     </div>
   </header>
 
-  <p class="note">全17店、9/2時点で食べログのネット予約に「土曜12:30ごろ・6名」の空きあり。評価が高い順に並べています。行きたい店が決まったら「食べログ（予約）」からそのまま予約できます。</p>
+  <p class="note">9/2時点で食べログのネット予約に6名の空きがある店だけを載せています。評価が高い順。行きたい店が決まったら「食べログ（予約）」からそのまま予約できます。投票は昼の部・夜の部それぞれ1票ずつ入れられます。</p>
 
-  <div id="votebar" hidden>🗳️ 気になる店に<strong>匿名で1票</strong>入れてください（あとから変更・取消OK）。<span id="votetotal"></span></div>
+  <div id="votebar" hidden>🗳️ 気になる店に<strong>匿名で投票</strong>してください。昼の部・夜の部それぞれ1票ずつ（あとから変更・取消OK）。<span id="votetotal"></span></div>
 
   <div id="voteresults" hidden>
     <h2>現在の投票結果</h2>
     <div id="resultlist"></div>
   </div>
+
+  <h2 class="sec-head">昼の部｜神保町ランチ</h2>
+  <p class="sec-note">明大駿河台キャンパスから徒歩7分圏・12:30ごろ入店。</p>
 
   <div class="card">
     <div class="card-top">
@@ -451,6 +464,135 @@
     </div>
   </div>
 
+  <h2 class="sec-head">夜の部｜渋谷ディナー</h2>
+  <p class="sec-note">9/5（土）18:00・6名・渋谷駅周辺。夜予算¥4,000〜6,000の同価格帯で「大箱・賑わい・Google口コミ多数」の店を厳選。Google評価は2026-09-02時点。</p>
+
+  <div class="card" data-sec="dinner">
+    <div class="card-top">
+      <h2 class="shop">ラス ボカス</h2>
+      <span class="score">3.46</span>
+      <span class="tag">スペイン・パエリア</span>
+    </div>
+    <div class="meta">
+      <span>渋谷駅東口8分</span>
+      <span>Google <strong class="gmark">4.5★ (1,539件)</strong></span>
+      <span>夜 <strong>¥5,000〜6,000</strong></span>
+    </div>
+    <p class="desc">瀬戸内直送魚介のスペインバル、74席の大箱で活気系。全9品コースが42%offの4,500円（飲み放題2h付きは6,000円）とコースがお得。個室は12名〜なのでテーブル席。</p>
+    <div class="actions">
+      <a class="btn" href="https://www.google.com/maps/search/?api=1&query=ラス+ボカス+渋谷" target="_blank" rel="noopener">Googleマップで見る</a>
+      <a class="btn ghost" href="https://tabelog.com/tokyo/A1303/A130301/13117243/" target="_blank" rel="noopener">食べログ（予約）</a>
+    </div>
+  </div>
+
+  <div class="card" data-sec="dinner">
+    <div class="card-top">
+      <h2 class="shop">Legato</h2>
+      <span class="score">3.52</span>
+      <span class="tag">イタリアン・ダイニング</span>
+    </div>
+    <div class="meta">
+      <span>道玄坂上・ビル15階</span>
+      <span>Google <strong class="gmark">4.7★ (3,204件)</strong></span>
+      <span>夜 <strong>¥4,000〜5,000</strong></span>
+    </div>
+    <p class="desc">渋谷の夜景を見下ろすラグジュアリー大箱ダイニング。Google 4.7★×3,200件超は渋谷でも別格。この価格でこの空間はかなりお得。特別感重視ならここ。</p>
+    <div class="actions">
+      <a class="btn" href="https://www.google.com/maps/search/?api=1&query=Legato+渋谷" target="_blank" rel="noopener">Googleマップで見る</a>
+      <a class="btn ghost" href="https://tabelog.com/tokyo/A1303/A130301/13005405/" target="_blank" rel="noopener">食べログ（予約）</a>
+    </div>
+  </div>
+
+  <div class="card" data-sec="dinner">
+    <div class="card-top">
+      <h2 class="shop">Goodbeer faucets</h2>
+      <span class="score">3.56</span>
+      <span class="tag">クラフトビール</span>
+    </div>
+    <div class="meta">
+      <span>渋谷駅5分（神泉寄り）</span>
+      <span>Google <strong class="gmark">4.2★ (921件)</strong></span>
+      <span>夜 <strong>¥4,000〜5,000</strong></span>
+    </div>
+    <p class="desc">樽生24種＋缶50種以上の大箱クラフトビアバー。フードはバーガー系。ワイワイ度は候補中いちばん。ビール好きが多いならここ。</p>
+    <div class="actions">
+      <a class="btn" href="https://www.google.com/maps/search/?api=1&query=Goodbeer+faucets+渋谷" target="_blank" rel="noopener">Googleマップで見る</a>
+      <a class="btn ghost" href="https://tabelog.com/tokyo/A1303/A130301/13135142/" target="_blank" rel="noopener">食べログ（予約）</a>
+    </div>
+  </div>
+
+  <div class="card" data-sec="dinner">
+    <div class="card-top">
+      <h2 class="shop">カールヴァーン トウキョウ</h2>
+      <span class="score">3.55</span>
+      <span class="tag">地中海・アラビア料理</span>
+    </div>
+    <div class="meta">
+      <span>渋谷駅直結（ストリーム前）</span>
+      <span>Google <strong class="gmark">3.9★ (722件)</strong></span>
+      <span>夜 <strong>¥5,000〜6,000</strong></span>
+    </div>
+    <p class="desc">異国のバザールみたいな非日常空間の大箱。料理も見た目が華やかで写真映え系。雰囲気のインパクトなら候補中No.1。</p>
+    <div class="actions">
+      <a class="btn" href="https://www.google.com/maps/search/?api=1&query=カールヴァーン+渋谷" target="_blank" rel="noopener">Googleマップで見る</a>
+      <a class="btn ghost" href="https://tabelog.com/tokyo/A1303/A130301/13240295/" target="_blank" rel="noopener">食べログ（予約）</a>
+    </div>
+  </div>
+
+  <div class="card" data-sec="dinner">
+    <div class="card-top">
+      <h2 class="shop">XIRINGUITO Escriba</h2>
+      <span class="score">3.49</span>
+      <span class="tag">スペイン・パエリア</span>
+    </div>
+    <div class="meta">
+      <span>渋谷ストリーム（駅直結）</span>
+      <span>Google <strong class="gmark">3.8★ (801件)</strong></span>
+      <span>夜 <strong>¥5,000〜6,000</strong></span>
+    </div>
+    <p class="desc">「バルセロナで一番おいしいパエリア」の店の東京店。駅直結で集合が楽。パエリア重視ならラス ボカスとの比較候補。</p>
+    <div class="actions">
+      <a class="btn" href="https://www.google.com/maps/search/?api=1&query=XIRINGUITO+Escriba+渋谷" target="_blank" rel="noopener">Googleマップで見る</a>
+      <a class="btn ghost" href="https://tabelog.com/tokyo/A1303/A130301/13224292/" target="_blank" rel="noopener">食べログ（予約）</a>
+    </div>
+  </div>
+
+  <div class="card" data-sec="dinner">
+    <div class="card-top">
+      <h2 class="shop">魚真 渋谷店</h2>
+      <span class="score">3.52</span>
+      <span class="tag">海鮮居酒屋</span>
+    </div>
+    <div class="meta">
+      <span>神泉駅5分</span>
+      <span>Google <strong class="gmark">4.1★ (645件)</strong></span>
+      <span>夜 <strong>¥5,000〜6,000</strong></span>
+    </div>
+    <p class="desc">名物「のっけ寿司」（ウニ・カニ・アワビ）の賑わい海鮮酒場。恵比寿などに数店ある個人系グループ。和で行くならここ。</p>
+    <div class="actions">
+      <a class="btn" href="https://www.google.com/maps/search/?api=1&query=魚真+渋谷店" target="_blank" rel="noopener">Googleマップで見る</a>
+      <a class="btn ghost" href="https://tabelog.com/tokyo/A1303/A130301/13001781/" target="_blank" rel="noopener">食べログ（予約）</a>
+    </div>
+  </div>
+
+  <div class="card" data-sec="dinner">
+    <div class="card-top">
+      <h2 class="shop">ピッツェリア メリプリンチペッサ 渋谷店</h2>
+      <span class="score">3.55</span>
+      <span class="tag">薪窯ピッツァ</span>
+    </div>
+    <div class="meta">
+      <span>神泉駅3分</span>
+      <span>Google <strong class="gmark">4.3★ (360件)</strong></span>
+      <span>夜 <strong>¥5,000〜6,000</strong></span>
+    </div>
+    <p class="desc">本格薪窯ピッツァ×自然派ワインの人気イタリアン。箱は他よりやや小さめだが評価は安定して高い。</p>
+    <div class="actions">
+      <a class="btn" href="https://www.google.com/maps/search/?api=1&query=メリプリンチペッサ+渋谷" target="_blank" rel="noopener">Googleマップで見る</a>
+      <a class="btn ghost" href="https://tabelog.com/tokyo/A1303/A130301/13112030/" target="_blank" rel="noopener">食べログ（予約）</a>
+    </div>
+  </div>
+
   <footer>
     評価・空席は2026年9月2日時点の<a href="https://tabelog.com/tokyo/A1310/A131003/rstLst/?svd=20260905&svt=1230&svps=6&vac_net=1&SrtT=rt" target="_blank" rel="noopener">食べログ検索結果</a>より。予約前にリンク先で最新の空席を確認してください。投票は匿名です（端末ごとに1票）。
   </footer>
@@ -463,22 +605,28 @@
   var votebar = document.getElementById("votebar");
   var votetotal = document.getElementById("votetotal");
 
-  var clientId = null, myVote = null;
+  var clientId = null;
+  var myVotes = { lunch: null, dinner: null };
+  var LS_KEY = { lunch: "lunch_vote_shop", dinner: "lunch_vote_shop_d" };
   try {
     clientId = localStorage.getItem("lunch_vote_cid");
     if (!clientId) {
       clientId = Array.prototype.map.call(crypto.getRandomValues(new Uint8Array(16)), function (b) { return b.toString(16).padStart(2, "0"); }).join("");
       localStorage.setItem("lunch_vote_cid", clientId);
     }
-    myVote = localStorage.getItem("lunch_vote_shop");
+    myVotes.lunch = localStorage.getItem(LS_KEY.lunch);
+    myVotes.dinner = localStorage.getItem(LS_KEY.dinner);
   } catch (e) { clientId = null; }
 
   var rows = {};
   function shopName(card) { return card.querySelector(".shop").textContent.trim(); }
+  function secOf(card) { return card.getAttribute("data-sec") || "lunch"; }
+  function clientFor(sec) { return sec === "dinner" ? clientId + "_d" : clientId; }
 
   function buildUI() {
     cards.forEach(function (card) {
       var shop = shopName(card);
+      var sec = secOf(card);
       var row = document.createElement("div");
       row.className = "vote-row";
       var btn = document.createElement("button");
@@ -489,8 +637,8 @@
       row.appendChild(btn);
       row.appendChild(count);
       card.appendChild(row);
-      rows[shop] = { btn: btn, count: count };
-      btn.addEventListener("click", function () { vote(shop); });
+      rows[shop] = { btn: btn, count: count, sec: sec };
+      btn.addEventListener("click", function () { vote(shop, sec); });
     });
     votebar.hidden = false;
   }
@@ -500,7 +648,7 @@
     Object.keys(tallies).forEach(function (k) { total += tallies[k]; });
     Object.keys(rows).forEach(function (shop) {
       var n = tallies[shop] || 0;
-      var mine = myVote === shop;
+      var mine = myVotes[rows[shop].sec] === shop;
       rows[shop].btn.textContent = mine ? "✓ 投票済み（取消は再タップ）" : "🗳️ この店に投票";
       rows[shop].btn.classList.toggle("voted", mine);
       rows[shop].count.innerHTML = n > 0 ? "現在 <b>" + n + "</b> 票" : "まだ票なし";
@@ -514,66 +662,76 @@
     var list = document.getElementById("resultlist");
     box.hidden = false;
     list.textContent = "";
-    var ranked = Object.keys(rows)
-      .map(function (shop) { return { shop: shop, n: tallies[shop] || 0 }; })
-      .filter(function (r) { return r.n > 0; })
-      .sort(function (a, b) { return b.n - a.n; });
-    if (ranked.length === 0) {
+    var any = false;
+    [["昼の部（神保町ランチ）", "lunch"], ["夜の部（渋谷ディナー）", "dinner"]].forEach(function (g) {
+      var label = g[0], sec = g[1];
+      var ranked = Object.keys(rows)
+        .filter(function (shop) { return rows[shop].sec === sec; })
+        .map(function (shop) { return { shop: shop, n: tallies[shop] || 0 }; })
+        .filter(function (r) { return r.n > 0; })
+        .sort(function (a, b) { return b.n - a.n; });
+      if (ranked.length === 0) return;
+      any = true;
+      var h = document.createElement("div");
+      h.className = "result-group-title";
+      h.textContent = label;
+      list.appendChild(h);
+      var max = ranked[0].n;
+      ranked.forEach(function (r) {
+        var row = document.createElement("button");
+        row.className = "result-row";
+        row.type = "button";
+        var name = document.createElement("span");
+        name.className = "result-name";
+        name.textContent = r.shop;
+        if (myVotes[sec] === r.shop) {
+          var mine = document.createElement("span");
+          mine.className = "mine";
+          mine.textContent = "← あなたの票";
+          name.appendChild(mine);
+        }
+        var num = document.createElement("span");
+        num.className = "result-num";
+        num.textContent = r.n + "票";
+        var bar = document.createElement("span");
+        bar.className = "result-bar";
+        var fill = document.createElement("i");
+        fill.style.width = Math.round(r.n / max * 100) + "%";
+        bar.appendChild(fill);
+        row.appendChild(name);
+        row.appendChild(num);
+        row.appendChild(bar);
+        row.addEventListener("click", function () {
+          var target = cards.filter(function (c) { return shopName(c) === r.shop; })[0];
+          if (target) target.scrollIntoView({ behavior: "smooth", block: "center" });
+        });
+        list.appendChild(row);
+      });
+    });
+    if (!any) {
       var p = document.createElement("p");
       p.className = "empty";
       p.textContent = "まだ投票がありません。気になる店に1票どうぞ！";
       list.appendChild(p);
-      return;
     }
-    var max = ranked[0].n;
-    ranked.forEach(function (r) {
-      var row = document.createElement("button");
-      row.className = "result-row";
-      row.type = "button";
-      var name = document.createElement("span");
-      name.className = "result-name";
-      name.textContent = r.shop;
-      if (myVote === r.shop) {
-        var mine = document.createElement("span");
-        mine.className = "mine";
-        mine.textContent = "← あなたの票";
-        name.appendChild(mine);
-      }
-      var num = document.createElement("span");
-      num.className = "result-num";
-      num.textContent = r.n + "票";
-      var bar = document.createElement("span");
-      bar.className = "result-bar";
-      var fill = document.createElement("i");
-      fill.style.width = Math.round(r.n / max * 100) + "%";
-      bar.appendChild(fill);
-      row.appendChild(name);
-      row.appendChild(num);
-      row.appendChild(bar);
-      row.addEventListener("click", function () {
-        var target = cards.filter(function (c) { return shopName(c) === r.shop; })[0];
-        if (target) target.scrollIntoView({ behavior: "smooth", block: "center" });
-      });
-      list.appendChild(row);
-    });
   }
 
   function setBusy(b) {
     Object.keys(rows).forEach(function (s) { rows[s].btn.disabled = b; });
   }
 
-  function vote(shop) {
+  function vote(shop, sec) {
     if (!clientId) return;
-    var next = (myVote === shop) ? "__CLEAR__" : shop;
+    var next = (myVotes[sec] === shop) ? "__CLEAR__" : shop;
     setBusy(true);
-    fetch(API, { method: "POST", headers: { "Content-Type": "text/plain" }, body: JSON.stringify({ client: clientId, shop: next }) })
+    fetch(API, { method: "POST", headers: { "Content-Type": "text/plain" }, body: JSON.stringify({ client: clientFor(sec), shop: next }) })
       .then(function (r) { return r.json(); })
       .then(function (res) {
         if (res && res.ok) {
-          myVote = (next === "__CLEAR__") ? null : shop;
+          myVotes[sec] = (next === "__CLEAR__") ? null : shop;
           try {
-            if (myVote) localStorage.setItem("lunch_vote_shop", myVote);
-            else localStorage.removeItem("lunch_vote_shop");
+            if (myVotes[sec]) localStorage.setItem(LS_KEY[sec], myVotes[sec]);
+            else localStorage.removeItem(LS_KEY[sec]);
           } catch (e) {}
           render(res.tallies || {});
         }
