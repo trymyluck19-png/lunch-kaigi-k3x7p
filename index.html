@@ -124,6 +124,27 @@
   button.votebtn:disabled { opacity: .5; cursor: wait; }
   .vote-count { font-size: 13px; color: var(--ink-soft); font-variant-numeric: tabular-nums; }
   .vote-count b { color: var(--gold); font-size: 15px; }
+
+  #voteresults {
+    background: var(--card); border: 1px solid var(--line); border-radius: 10px;
+    padding: 16px 20px; margin-bottom: 20px;
+  }
+  #voteresults h2 {
+    font-family: "Shippori Mincho", serif; font-size: 16px; margin: 0 0 10px;
+    color: var(--green-deep); letter-spacing: .04em;
+  }
+  .result-row {
+    display: grid; grid-template-columns: 1fr auto; align-items: center;
+    gap: 4px 12px; padding: 6px 0; cursor: pointer; border: 0; background: none;
+    width: 100%; text-align: left; font-family: inherit; color: var(--ink);
+  }
+  .result-row:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; border-radius: 4px; }
+  .result-name { font-size: 14px; font-weight: 700; }
+  .result-name .mine { font-size: 11px; color: var(--green-deep); font-weight: 700; margin-left: 6px; }
+  .result-num { font-size: 13px; color: var(--gold); font-weight: 700; font-variant-numeric: tabular-nums; white-space: nowrap; }
+  .result-bar { grid-column: 1 / -1; height: 6px; border-radius: 3px; background: var(--green-wash); overflow: hidden; }
+  .result-bar i { display: block; height: 100%; background: var(--green); border-radius: 3px; transition: width .4s ease; }
+  #voteresults .empty { font-size: 13px; color: var(--ink-soft); margin: 0; }
 </style>
 
 <div class="wrap">
@@ -141,6 +162,11 @@
   <p class="note">全17店、9/2時点で食べログのネット予約に「土曜12:30ごろ・6名」の空きあり。評価が高い順に並べています。行きたい店が決まったら「食べログ（予約）」からそのまま予約できます。</p>
 
   <div id="votebar" hidden>🗳️ 気になる店に<strong>匿名で1票</strong>入れてください（あとから変更・取消OK）。<span id="votetotal"></span></div>
+
+  <div id="voteresults" hidden>
+    <h2>現在の投票結果</h2>
+    <div id="resultlist"></div>
+  </div>
 
   <div class="card">
     <div class="card-top">
@@ -480,6 +506,56 @@
       rows[shop].count.innerHTML = n > 0 ? "現在 <b>" + n + "</b> 票" : "まだ票なし";
     });
     votetotal.textContent = total > 0 ? " 現在の総票数: " + total + "票" : "";
+    renderResults(tallies, total);
+  }
+
+  function renderResults(tallies, total) {
+    var box = document.getElementById("voteresults");
+    var list = document.getElementById("resultlist");
+    box.hidden = false;
+    list.textContent = "";
+    var ranked = Object.keys(rows)
+      .map(function (shop) { return { shop: shop, n: tallies[shop] || 0 }; })
+      .filter(function (r) { return r.n > 0; })
+      .sort(function (a, b) { return b.n - a.n; });
+    if (ranked.length === 0) {
+      var p = document.createElement("p");
+      p.className = "empty";
+      p.textContent = "まだ投票がありません。気になる店に1票どうぞ！";
+      list.appendChild(p);
+      return;
+    }
+    var max = ranked[0].n;
+    ranked.forEach(function (r) {
+      var row = document.createElement("button");
+      row.className = "result-row";
+      row.type = "button";
+      var name = document.createElement("span");
+      name.className = "result-name";
+      name.textContent = r.shop;
+      if (myVote === r.shop) {
+        var mine = document.createElement("span");
+        mine.className = "mine";
+        mine.textContent = "← あなたの票";
+        name.appendChild(mine);
+      }
+      var num = document.createElement("span");
+      num.className = "result-num";
+      num.textContent = r.n + "票";
+      var bar = document.createElement("span");
+      bar.className = "result-bar";
+      var fill = document.createElement("i");
+      fill.style.width = Math.round(r.n / max * 100) + "%";
+      bar.appendChild(fill);
+      row.appendChild(name);
+      row.appendChild(num);
+      row.appendChild(bar);
+      row.addEventListener("click", function () {
+        var target = cards.filter(function (c) { return shopName(c) === r.shop; })[0];
+        if (target) target.scrollIntoView({ behavior: "smooth", block: "center" });
+      });
+      list.appendChild(row);
+    });
   }
 
   function setBusy(b) {
