@@ -144,6 +144,8 @@
   .result-num { font-size: 13px; color: var(--gold); font-weight: 700; font-variant-numeric: tabular-nums; white-space: nowrap; }
   .result-bar { grid-column: 1 / -1; height: 6px; border-radius: 3px; background: var(--green-wash); overflow: hidden; }
   .result-bar i { display: block; height: 100%; background: var(--green); border-radius: 3px; transition: width .4s ease; }
+  .result-info { grid-column: 1 / -1; font-size: 12px; color: var(--green-deep); font-weight: 500; }
+  .result-desc { grid-column: 1 / -1; font-size: 12px; color: var(--ink-soft); line-height: 1.55; }
   #voteresults .empty { font-size: 13px; color: var(--ink-soft); margin: 0; }
   .result-group-title { font-size: 12px; font-weight: 700; letter-spacing: .1em; color: var(--green-deep); margin: 12px 0 2px; }
   .result-group-title:first-child { margin-top: 0; }
@@ -637,7 +639,14 @@
       row.appendChild(btn);
       row.appendChild(count);
       card.appendChild(row);
-      rows[shop] = { btn: btn, count: count, sec: sec };
+      var tagEl = card.querySelector(".tag");
+      var metaEl = card.querySelector(".meta");
+      var descEl = card.querySelector(".desc");
+      rows[shop] = {
+        btn: btn, count: count, sec: sec,
+        info: [tagEl ? tagEl.textContent.trim() : "", metaEl ? metaEl.textContent.replace(/\s+/g, " ").trim() : ""].filter(Boolean).join("｜"),
+        desc: descEl ? descEl.textContent.trim() : ""
+      };
       btn.addEventListener("click", function () { vote(shop, sec); });
     });
     votebar.hidden = false;
@@ -701,6 +710,18 @@
         row.appendChild(name);
         row.appendChild(num);
         row.appendChild(bar);
+        if (rows[r.shop].info) {
+          var info = document.createElement("span");
+          info.className = "result-info";
+          info.textContent = rows[r.shop].info;
+          row.appendChild(info);
+        }
+        if (rows[r.shop].desc) {
+          var d = document.createElement("span");
+          d.className = "result-desc";
+          d.textContent = rows[r.shop].desc;
+          row.appendChild(d);
+        }
         row.addEventListener("click", function () {
           var target = cards.filter(function (c) { return shopName(c) === r.shop; })[0];
           if (target) target.scrollIntoView({ behavior: "smooth", block: "center" });
