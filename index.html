@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>神保町ランチ会議</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@600;700&family=Zen+Kaku+Gothic+New:wght@400;500;700&display=swap">
+<style>
+  :root {
+    --paper: #f6f4ed;
+    --card: #fffdf8;
+    --ink: #26251f;
+    --ink-soft: #5c5a4f;
+    --line: #e0dccd;
+    --green: #2e6e4e;
+    --green-deep: #245a40;
+    --green-wash: #e9f0ea;
+    --gold: #b98a2f;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --paper: #171d19;
+      --card: #1f2721;
+      --ink: #ece9dd;
+      --ink-soft: #a8a595;
+      --line: #35403a;
+      --green: #6fbb92;
+      --green-deep: #8cccab;
+      --green-wash: #24352b;
+      --gold: #d4a94f;
+    }
+  }
+  :root[data-theme="dark"] {
+    --paper: #171d19;
+    --card: #1f2721;
+    --ink: #ece9dd;
+    --ink-soft: #a8a595;
+    --line: #35403a;
+    --green: #6fbb92;
+    --green-deep: #8cccab;
+    --green-wash: #24352b;
+    --gold: #d4a94f;
+  }
+  body {
+    background: var(--paper);
+    color: var(--ink);
+    font-family: "Zen Kaku Gothic New", "Hiragino Kaku Gothic ProN", sans-serif;
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+  }
+  .wrap { max-width: 680px; margin: 0 auto; padding: 40px 20px 64px; }
+
+  header { border-bottom: 3px double var(--line); padding-bottom: 24px; margin-bottom: 8px; }
+  .eyebrow {
+    font-size: 12px; letter-spacing: .18em; color: var(--green);
+    font-weight: 700; margin-bottom: 10px;
+  }
+  h1 {
+    font-family: "Shippori Mincho", "Hiragino Mincho ProN", serif;
+    font-size: clamp(28px, 6vw, 38px); font-weight: 700;
+    margin: 0 0 14px; letter-spacing: .04em; text-wrap: balance;
+  }
+  .conds { display: flex; flex-wrap: wrap; gap: 8px; }
+  .cond {
+    background: var(--green-wash); color: var(--green-deep);
+    border-radius: 999px; padding: 4px 14px; font-size: 13px; font-weight: 500;
+  }
+  .note { font-size: 13px; color: var(--ink-soft); margin: 16px 0 28px; }
+
+  .card {
+    background: var(--card); border: 1px solid var(--line);
+    border-radius: 10px; padding: 20px 22px; margin-bottom: 14px;
+  }
+  .card-top { display: flex; align-items: baseline; gap: 12px; flex-wrap: wrap; }
+  .shop {
+    font-family: "Shippori Mincho", serif; font-size: 20px; font-weight: 700;
+    margin: 0; letter-spacing: .02em;
+  }
+  .score {
+    font-variant-numeric: tabular-nums; font-weight: 700; font-size: 15px;
+    color: var(--gold); white-space: nowrap;
+  }
+  .score::before { content: "★"; font-size: 13px; margin-right: 2px; }
+  .meta { display: flex; flex-wrap: wrap; gap: 6px 14px; font-size: 13px; color: var(--ink-soft); margin: 8px 0 10px; }
+  .meta strong { color: var(--ink); font-weight: 500; }
+  .desc { font-size: 14px; margin: 0 0 14px; }
+  .actions { display: flex; gap: 10px; flex-wrap: wrap; }
+  a.btn {
+    display: inline-block; text-decoration: none; font-size: 13px; font-weight: 700;
+    padding: 8px 18px; border-radius: 6px;
+    background: var(--green); color: var(--card);
+  }
+  a.btn:hover { background: var(--green-deep); }
+  a.btn:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+  a.btn.ghost {
+    background: transparent; color: var(--green-deep);
+    border: 1px solid var(--green);
+  }
+
+  .tag {
+    font-size: 11px; font-weight: 700; letter-spacing: .08em;
+    color: var(--green-deep); border: 1px solid var(--green);
+    border-radius: 4px; padding: 1px 8px; white-space: nowrap;
+  }
+
+  footer { margin-top: 36px; padding-top: 18px; border-top: 1px solid var(--line); font-size: 12px; color: var(--ink-soft); }
+  footer a { color: var(--green-deep); }
+
+  #votebar {
+    background: var(--green-wash); border: 1px solid var(--line); border-radius: 10px;
+    padding: 12px 18px; margin-bottom: 20px; font-size: 13px; color: var(--green-deep);
+  }
+  #votebar strong { font-size: 15px; }
+  .vote-row { display: flex; align-items: center; gap: 10px; margin-top: 12px; padding-top: 12px; border-top: 1px dashed var(--line); }
+  button.votebtn {
+    font-family: inherit; font-size: 13px; font-weight: 700; cursor: pointer;
+    padding: 8px 18px; border-radius: 999px;
+    background: var(--card); color: var(--green-deep); border: 1.5px solid var(--green);
+  }
+  button.votebtn:hover { background: var(--green-wash); }
+  button.votebtn:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+  button.votebtn.voted { background: var(--green); color: var(--card); }
+  button.votebtn:disabled { opacity: .5; cursor: wait; }
+  .vote-count { font-size: 13px; color: var(--ink-soft); font-variant-numeric: tabular-nums; }
+  .vote-count b { color: var(--gold); font-size: 15px; }
+</style>
+
+<div class="wrap">
+  <header>
+    <div class="eyebrow">明治大学 駿河台キャンパス周辺</div>
+    <h1>神保町ランチ会議</h1>
+    <div class="conds">
+      <span class="cond">9/5（土）12:30ごろ</span>
+      <span class="cond">6名</span>
+      <span class="cond">明大から徒歩7分圏</span>
+      <span class="cond">チェーン店なし</span>
+    </div>
+  </header>
+
+  <p class="note">全17店、9/2時点で食べログのネット予約に「土曜12:30ごろ・6名」の空きあり。評価が高い順に並べています。行きたい店が決まったら「食べログ（予約）」からそのまま予約できます。</p>
+
+  <div id="votebar" hidden>🗳️ 気になる店に<strong>匿名で1票</strong>入れてください（あとから変更・取消OK）。<span id="votetotal"></span></div>
+
+  <div class="card">
+    <div class="card-top">
+      <h2 class="shop">701</h2>
+      <span class="score">3.60</span>
+      <span class="tag">イタリアン</span>
+    </div>
+    <div class="meta">
+      <span>御茶ノ水駅2分 <strong>／ 明大から徒歩約5分</strong></span>
+      <span>ランチ <strong>¥6,000〜8,000（コース）</strong></span>
+    </div>
+    <p class="desc">御茶ノ水の本格イタリアン。今回の候補で最高評価。ちゃんとしたコースでゆっくり祝いたい・贅沢したい会ならここ一択。</p>
+    <div class="actions">
+      <a class="btn" href="https://www.google.com/maps/search/?api=1&query=701+御茶ノ水+イタリアン" target="_blank" rel="noopener">Googleマップで見る</a>
+      <a class="btn ghost" href="https://tabelog.com/tokyo/A1310/A131002/13286520/" target="_blank" rel="noopener">食べログ（予約）</a>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-top">
+      <h2 class="shop">メメントモリ</h2>
+      <span class="score">3.52</span>
+      <span class="tag">スリランカカレー</span>
+    </div>
+    <div class="meta">
+      <span>神保町駅1分 <strong>／ 明大から徒歩約5分</strong></span>
+      <span>ランチ <strong>¥1,000〜2,000</strong></span>
+    </div>
+    <p class="desc">自家製スパイスのスリランカカレーと旬素材の副菜。カレー激戦区・神保町でも頭ひとつ抜けた評価の実力店。落ち着いた空間。</p>
+    <div class="actions">
+      <a class="btn" href="https://www.google.com/maps/search/?api=1&query=メメントモリ+神保町" target="_blank" rel="noopener">Googleマップで見る</a>
+      <a class="btn ghost" href="https://tabelog.com/tokyo/A1310/A131003/13279292/" target="_blank" rel="noopener">食べログ（予約）</a>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-top">
+      <h2 class="shop">新世界菜館</h2>
+      <span class="score">3.47</span>
+      <span class="tag">上海中華</span>
+    </div>
+    <div class="meta">
+      <span>神保町駅1分 <strong>／ 明大から徒歩約5分</strong></span>
+      <span>ランチ <strong>¥1,000〜2,000</strong></span>
+    </div>
+    <p class="desc">1946年創業、神保町を代表する老舗中華。個室もあり6人でわいわい取り分けるならここが一番楽。上海蟹で有名な本格派。</p>
+    <div class="actions">
+      <a class="btn" href="https://www.google.com/maps/search/?api=1&query=新世界菜館+神保町" target="_blank" rel="noopener">Googleマップで見る</a>
+      <a class="btn ghost" href="https://tabelog.com/tokyo/A1310/A131003/13309279/" target="_blank" rel="noopener">食べログ（予約）</a>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-top">
+      <h2 class="shop">浅草割烹 天とよ 神保町店</h2>
+      <span class="score">3.46</span>
+      <span class="tag">天ぷら・割烹</span>
+    </div>
+    <div class="meta">
+      <span>神保町駅1分 <strong>／ 明大から徒歩約5分</strong></span>
+      <span>ランチ <strong>¥1,000〜2,000</strong></span>
+    </div>
+    <p class="desc">老舗天ぷら屋に生まれ育った店主の店。揚げたて天ぷら定食が手頃に食べられる。和食気分ならここ。</p>
+    <div class="actions">
+      <a class="btn" href="https://www.google.com/maps/search/?api=1&query=浅草割烹+天とよ+神保町" target="_blank" rel="noopener">Googleマップで見る</a>
+      <a class="btn ghost" href="https://tabelog.com/tokyo/A1310/A131003/13229844/" target="_blank" rel="noopener">食べログ（予約）</a>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-top">
+      <h2 class="shop">四川料理刀削麺 川府 神保町店</h2>
+      <span class="score">3.46</span>
+      <span class="tag">四川中華</span>
+    </div>
+    <div class="meta">
+      <span>神保町駅2分 <strong>／ 明大から徒歩約5分</strong></span>
+      <span>ランチ <strong>〜¥1,000</strong></span>
+    </div>
+    <p class="desc">刀削麺と麻婆豆腐が名物の本格四川。ボリューム満点でコスパ最強クラス。個室あり。安く済ませたいならここ。</p>
+    <div class="actions">
+      <a class="btn" href="https://www.google.com/maps/search/?api=1&query=四川料理刀削麺+川府+神保町" target="_blank" rel="noopener">Googleマップで見る</a>
+      <a class="btn ghost" href="https://tabelog.com/tokyo/A1310/A131003/13146994/" target="_blank" rel="noopener">食べログ（予約）</a>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-top">
+      <h2 class="shop">ルシ インドビリヤニ 神保町店</h2>
+      <span class="score">3.46</span>
+      <span class="tag">南インド</span>
+    </div>
+    <div class="meta">
+      <span>神保町駅すぐ <strong>／ 明大から徒歩約5分</strong></span>
+      <span>ランチ <strong>¥1,000〜2,000</strong></span>
+    </div>
+    <p class="desc">横浜の名店が神保町に進出したビリヤニ専門店。タミルの味そのままでリピーター続出。スパイス好きが多いなら候補。</p>
+    <div class="actions">
+      <a class="btn" href="https://www.google.com/maps/search/?api=1&query=ルシ+インドビリヤニ+神保町" target="_blank" rel="noopener">Googleマップで見る</a>
+      <a class="btn ghost" href="https://tabelog.com/tokyo/A1310/A131003/13308625/" target="_blank" rel="noopener">食べログ（予約）</a>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-top">
+      <h2 class="shop">GARB pintino</h2>
+      <span class="score">3.46</span>
+      <span class="tag">フレンチ・イタリアン</span>
+    </div>
+    <div class="meta">
+      <span>神保町駅4分 <strong>／ 明大から徒歩約6分</strong></span>
+      <span>ランチ <strong>¥1,000〜2,000</strong></span>
+    </div>
+    <p class="desc">天井高6mの開放的な空間が気持ちいいレストラン。雰囲気重視・ゆっくり話したいならここが一番。記念日利用も多い。</p>
+    <div class="actions">
+      <a class="btn" href="https://www.google.com/maps/search/?api=1&query=GARB+pintino+神保町" target="_blank" rel="noopener">Googleマップで見る</a>
+      <a class="btn ghost" href="https://tabelog.com/tokyo/A1310/A131003/13182226/" target="_blank" rel="noopener">食べログ（予約）</a>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-top">
+      <h2 class="shop">BISTRO Kuu 神保町</h2>
+      <span class="score">3.45</span>
+      <span class="tag">イタリアン</span>
+    </div>
+    <div class="meta">
+      <span>神保町駅4分 <strong>／ 明大から徒歩約6分</strong></span>
+      <span>ランチ <strong>¥1,000〜2,000</strong></span>
+    </div>
+    <p class="desc">メディア紹介多数のコスパ抜群ビストロ。気軽なイタリアンで外れなし。※12:30ちょうどの枠は埋まりがち、13:00〜は空きあり。</p>
+    <div class="actions">
+      <a class="btn" href="https://www.google.com/maps/search/?api=1&query=BISTRO+Kuu+神保町" target="_blank" rel="noopener">Googleマップで見る</a>
+      <a class="btn ghost" href="https://tabelog.com/tokyo/A1310/A131003/13119785/" target="_blank" rel="noopener">食べログ（予約）</a>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-top">
+      <h2 class="shop">グランタイム</h2>
+      <span class="score">3.45</span>
+      <span class="tag">イタリアン</span>
+    </div>
+    <div class="meta">
+      <span>神保町駅3分 <strong>／ 明大から徒歩約6分</strong></span>
+      <span>ランチ <strong>¥1,000〜2,000</strong></span>
+    </div>
+    <p class="desc">千葉のブランド豚・鮮魚・九十九里の蛤とワインの店。半個室あり。しっかりした洋食ランチが食べたい人向け。</p>
+    <div class="actions">
+      <a class="btn" href="https://www.google.com/maps/search/?api=1&query=グランタイム+神保町" target="_blank" rel="noopener">Googleマップで見る</a>
+      <a class="btn ghost" href="https://tabelog.com/tokyo/A1310/A131003/13266718/" target="_blank" rel="noopener">食べログ（予約）</a>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-top">
+      <h2 class="shop">edge</h2>
+      <span class="score">3.44</span>
+      <span class="tag">バル・ビストロ</span>
+    </div>
+    <div class="meta">
+      <span>神保町駅4分 <strong>／ 明大から徒歩約6分</strong></span>
+    </div>
+    <p class="desc">オリジナリティのある料理が評判の個性派バル。離れ席もあり、貸切・団体対応に慣れている。</p>
+    <div class="actions">
+      <a class="btn" href="https://www.google.com/maps/search/?api=1&query=edge+神保町+バル" target="_blank" rel="noopener">Googleマップで見る</a>
+      <a class="btn ghost" href="https://tabelog.com/tokyo/A1310/A131003/13208588/" target="_blank" rel="noopener">食べログ（予約）</a>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-top">
+      <h2 class="shop">厨 神保町本店</h2>
+      <span class="score">3.44</span>
+      <span class="tag">洋食・ハンバーグ</span>
+    </div>
+    <div class="meta">
+      <span>神保町駅2分 <strong>／ 明大から徒歩約5分</strong></span>
+      <span>ランチ <strong>¥1,000〜2,000</strong></span>
+    </div>
+    <p class="desc">神戸牛ハンバーグのランチセットがお得と評判の洋食店。がっつり肉気分ならここ。</p>
+    <div class="actions">
+      <a class="btn" href="https://www.google.com/maps/search/?api=1&query=厨+神保町本店" target="_blank" rel="noopener">Googleマップで見る</a>
+      <a class="btn ghost" href="https://tabelog.com/tokyo/A1310/A131003/13253277/" target="_blank" rel="noopener">食べログ（予約）</a>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-top">
+      <h2 class="shop">シュラスコレストラン ALEGRIA Jimbocho</h2>
+      <span class="score">3.43</span>
+      <span class="tag">シュラスコ</span>
+    </div>
+    <div class="meta">
+      <span>神保町駅1分 <strong>／ 明大から徒歩約5分</strong></span>
+    </div>
+    <p class="desc">焼きたての肉を切り分けてくれるブラジリアンBBQ食べ放題。6人でイベント感を出したいならいちばん盛り上がる。</p>
+    <div class="actions">
+      <a class="btn" href="https://www.google.com/maps/search/?api=1&query=シュラスコレストラン+ALEGRIA+神保町" target="_blank" rel="noopener">Googleマップで見る</a>
+      <a class="btn ghost" href="https://tabelog.com/tokyo/A1310/A131003/13285386/" target="_blank" rel="noopener">食べログ（予約）</a>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-top">
+      <h2 class="shop">沖縄クラフトビール＆琉球バル ガチマヤ</h2>
+      <span class="score">3.42</span>
+      <span class="tag">沖縄料理</span>
+    </div>
+    <div class="meta">
+      <span>神保町駅1分 <strong>／ 明大から徒歩約5分</strong></span>
+    </div>
+    <p class="desc">沖縄料理とクラフトビールのバル。昼から軽く飲みたい会ならここ。</p>
+    <div class="actions">
+      <a class="btn" href="https://www.google.com/maps/search/?api=1&query=ガチマヤ+神保町" target="_blank" rel="noopener">Googleマップで見る</a>
+      <a class="btn ghost" href="https://tabelog.com/tokyo/A1310/A131003/13189860/" target="_blank" rel="noopener">食べログ（予約）</a>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-top">
+      <h2 class="shop">ホルモン焼肉 モリちゃん 御茶ノ水店</h2>
+      <span class="score">3.42</span>
+      <span class="tag">焼肉</span>
+    </div>
+    <div class="meta">
+      <span>神保町駅4分 <strong>／ 明大から徒歩約6分</strong></span>
+    </div>
+    <p class="desc">昔ながらのホルモン焼肉店。焼肉ランチを徒歩圏で、という時の現実解。</p>
+    <div class="actions">
+      <a class="btn" href="https://www.google.com/maps/search/?api=1&query=ホルモン焼肉+モリちゃん+御茶ノ水" target="_blank" rel="noopener">Googleマップで見る</a>
+      <a class="btn ghost" href="https://tabelog.com/tokyo/A1310/A131003/13022363/" target="_blank" rel="noopener">食べログ（予約）</a>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-top">
+      <h2 class="shop">サンガム 神保町店</h2>
+      <span class="score">3.42</span>
+      <span class="tag">インドカレー</span>
+    </div>
+    <div class="meta">
+      <span>神保町駅1分 <strong>／ 明大から徒歩約5分</strong></span>
+    </div>
+    <p class="desc">神保町の人気インドカレー店。ナン食べ放題系の満足ランチ。カレー派の対抗馬。</p>
+    <div class="actions">
+      <a class="btn" href="https://www.google.com/maps/search/?api=1&query=サンガム+神保町" target="_blank" rel="noopener">Googleマップで見る</a>
+      <a class="btn ghost" href="https://tabelog.com/tokyo/A1310/A131003/13180530/" target="_blank" rel="noopener">食べログ（予約）</a>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-top">
+      <h2 class="shop">oliver</h2>
+      <span class="score">3.41</span>
+      <span class="tag">フレンチビストロ</span>
+    </div>
+    <div class="meta">
+      <span>神保町駅2分 <strong>／ 明大から徒歩約5分</strong></span>
+    </div>
+    <p class="desc">気軽に使えるフレンチビストロ。ビストロ枠でGARBやKuuが取れない時の好選択肢。</p>
+    <div class="actions">
+      <a class="btn" href="https://www.google.com/maps/search/?api=1&query=oliver+神保町+ビストロ" target="_blank" rel="noopener">Googleマップで見る</a>
+      <a class="btn ghost" href="https://tabelog.com/tokyo/A1310/A131003/13237452/" target="_blank" rel="noopener">食べログ（予約）</a>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-top">
+      <h2 class="shop">酒と魚 海神 -UMIGAMI-</h2>
+      <span class="score">3.40</span>
+      <span class="tag">海鮮</span>
+    </div>
+    <div class="meta">
+      <span>神保町駅30秒 <strong>／ 明大から徒歩約5分</strong></span>
+      <span>ランチ <strong>¥1,000〜2,000</strong></span>
+    </div>
+    <p class="desc">旬の魚が自慢の海鮮居酒屋。魚気分の時の候補。駅いちばん近。</p>
+    <div class="actions">
+      <a class="btn" href="https://www.google.com/maps/search/?api=1&query=酒と魚+海神+神保町" target="_blank" rel="noopener">Googleマップで見る</a>
+      <a class="btn ghost" href="https://tabelog.com/tokyo/A1310/A131003/13290549/" target="_blank" rel="noopener">食べログ（予約）</a>
+    </div>
+  </div>
+
+  <footer>
+    評価・空席は2026年9月2日時点の<a href="https://tabelog.com/tokyo/A1310/A131003/rstLst/?svd=20260905&svt=1230&svps=6&vac_net=1&SrtT=rt" target="_blank" rel="noopener">食べログ検索結果</a>より。予約前にリンク先で最新の空席を確認してください。投票は匿名です（端末ごとに1票）。
+  </footer>
+</div>
+
+<script>
+(function () {
+  var API = "https://script.google.com/macros/s/AKfycbwm7Hv-I9AQZBmZ6ZqZgzM8DzqWEjXQ8awSERFpLQaVhVyxQ1Xt6YhOd8OuvuZD3wTX/exec";
+  var cards = Array.prototype.slice.call(document.querySelectorAll(".card"));
+  var votebar = document.getElementById("votebar");
+  var votetotal = document.getElementById("votetotal");
+
+  var clientId = null, myVote = null;
+  try {
+    clientId = localStorage.getItem("lunch_vote_cid");
+    if (!clientId) {
+      clientId = Array.prototype.map.call(crypto.getRandomValues(new Uint8Array(16)), function (b) { return b.toString(16).padStart(2, "0"); }).join("");
+      localStorage.setItem("lunch_vote_cid", clientId);
+    }
+    myVote = localStorage.getItem("lunch_vote_shop");
+  } catch (e) { clientId = null; }
+
+  var rows = {};
+  function shopName(card) { return card.querySelector(".shop").textContent.trim(); }
+
+  function buildUI() {
+    cards.forEach(function (card) {
+      var shop = shopName(card);
+      var row = document.createElement("div");
+      row.className = "vote-row";
+      var btn = document.createElement("button");
+      btn.className = "votebtn";
+      btn.type = "button";
+      var count = document.createElement("span");
+      count.className = "vote-count";
+      row.appendChild(btn);
+      row.appendChild(count);
+      card.appendChild(row);
+      rows[shop] = { btn: btn, count: count };
+      btn.addEventListener("click", function () { vote(shop); });
+    });
+    votebar.hidden = false;
+  }
+
+  function render(tallies) {
+    var total = 0;
+    Object.keys(tallies).forEach(function (k) { total += tallies[k]; });
+    Object.keys(rows).forEach(function (shop) {
+      var n = tallies[shop] || 0;
+      var mine = myVote === shop;
+      rows[shop].btn.textContent = mine ? "✓ 投票済み（取消は再タップ）" : "🗳️ この店に投票";
+      rows[shop].btn.classList.toggle("voted", mine);
+      rows[shop].count.innerHTML = n > 0 ? "現在 <b>" + n + "</b> 票" : "まだ票なし";
+    });
+    votetotal.textContent = total > 0 ? " 現在の総票数: " + total + "票" : "";
+  }
+
+  function setBusy(b) {
+    Object.keys(rows).forEach(function (s) { rows[s].btn.disabled = b; });
+  }
+
+  function vote(shop) {
+    if (!clientId) return;
+    var next = (myVote === shop) ? "__CLEAR__" : shop;
+    setBusy(true);
+    fetch(API, { method: "POST", headers: { "Content-Type": "text/plain" }, body: JSON.stringify({ client: clientId, shop: next }) })
+      .then(function (r) { return r.json(); })
+      .then(function (res) {
+        if (res && res.ok) {
+          myVote = (next === "__CLEAR__") ? null : shop;
+          try {
+            if (myVote) localStorage.setItem("lunch_vote_shop", myVote);
+            else localStorage.removeItem("lunch_vote_shop");
+          } catch (e) {}
+          render(res.tallies || {});
+        }
+      })
+      .catch(function () {})
+      .then(function () { setBusy(false); });
+  }
+
+  function refresh() {
+    fetch(API).then(function (r) { return r.json(); }).then(function (res) {
+      if (res && res.ok) render(res.tallies || {});
+    }).catch(function () {});
+  }
+
+  if (!clientId) return;
+  fetch(API).then(function (r) { return r.json(); }).then(function (res) {
+    if (res && res.ok) {
+      buildUI();
+      render(res.tallies || {});
+      setInterval(refresh, 30000);
+    }
+  }).catch(function () {});
+})();
+</script>
+</html>
