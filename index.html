@@ -137,6 +137,9 @@
   button.votebtn:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
   button.votebtn.voted { background: var(--green); color: var(--card); }
   button.votebtn:disabled { opacity: .5; cursor: wait; }
+  button.votebtn.second { border-style: dashed; font-weight: 500; }
+  button.votebtn.second.voted { border-style: solid; background: var(--green-wash); color: var(--green-deep); }
+  .card[data-sec="dinner"] button.votebtn.second.voted { background: var(--night-wash); color: var(--night-deep); }
   .vote-count { font-size: 13px; color: var(--ink-soft); font-variant-numeric: tabular-nums; }
   .vote-count b { color: var(--gold); font-size: 15px; }
 
@@ -203,9 +206,9 @@
     </div>
   </header>
 
-  <p class="note">9/2時点で食べログのネット予約に6名の空きがある店だけを載せています。評価が高い順。行きたい店が決まったら「食べログ（予約）」からそのまま予約できます。投票は昼の部・夜の部それぞれ1票ずつ入れられます。</p>
+  <p class="note">9/2時点で食べログのネット予約に6名の空きがある店だけを載せています。評価が高い順。行きたい店が決まったら「食べログ（予約）」からそのまま予約できます。投票は昼・夜それぞれで◎第一希望と○第二希望を1つずつ選べます。</p>
 
-  <div id="votebar" hidden>🗳️ 気になる店に<strong>匿名で投票</strong>してください。昼の部・夜の部それぞれ1票ずつ（あとから変更・取消OK）。<span id="votetotal"></span></div>
+  <div id="votebar" hidden>🗳️ <strong>◎第一希望</strong>と<strong>○第二希望</strong>を、昼の部・夜の部それぞれで1つずつ選んでください（匿名・あとから変更/取消OK）。集計は◎2点・○1点のポイント制です。<span id="votetotal"></span></div>
 
   <div id="voteresults" hidden>
     <h2>現在の投票結果</h2>
@@ -640,22 +643,39 @@
   var votetotal = document.getElementById("votetotal");
 
   var clientId = null;
-  var myVotes = { lunch: null, dinner: null };
-  var LS_KEY = { lunch: "lunch_vote_shop", dinner: "lunch_vote_shop_d" };
+  var myVotes = { lunch: { 1: null, 2: null }, dinner: { 1: null, 2: null } };
+  var LS_KEY = {
+    lunch: { 1: "lunch_vote_shop", 2: "lunch_vote_shop2" },
+    dinner: { 1: "lunch_vote_shop_d", 2: "lunch_vote_shop_d2" }
+  };
   try {
     clientId = localStorage.getItem("lunch_vote_cid");
     if (!clientId) {
       clientId = Array.prototype.map.call(crypto.getRandomValues(new Uint8Array(16)), function (b) { return b.toString(16).padStart(2, "0"); }).join("");
       localStorage.setItem("lunch_vote_cid", clientId);
     }
-    myVotes.lunch = localStorage.getItem(LS_KEY.lunch);
-    myVotes.dinner = localStorage.getItem(LS_KEY.dinner);
+    myVotes.lunch[1] = localStorage.getItem(LS_KEY.lunch[1]);
+    myVotes.lunch[2] = localStorage.getItem(LS_KEY.lunch[2]);
+    myVotes.dinner[1] = localStorage.getItem(LS_KEY.dinner[1]);
+    myVotes.dinner[2] = localStorage.getItem(LS_KEY.dinner[2]);
   } catch (e) { clientId = null; }
 
   var rows = {};
   function shopName(card) { return card.querySelector(".shop").textContent.trim(); }
   function secOf(card) { return card.getAttribute("data-sec") || "lunch"; }
-  function clientFor(sec) { return sec === "dinner" ? clientId + "_d" : clientId; }
+  function clientFor(sec, rank) {
+    var base = sec === "dinner" ? clientId + "_d" : clientId;
+    return rank === 2 ? base + "2" : base;
+  }
+  function valueFor(rank, shop) { return (rank === 2 && shop !== "__CLEAR__") ? "2:" + shop : shop; }
+  function splitTallies(tallies) {
+    var t1 = {}, t2 = {};
+    Object.keys(tallies).forEach(function (k) {
+      if (k.indexOf("2:") === 0) t2[k.slice(2)] = (t2[k.slice(2)] || 0) + tallies[k];
+      else t1[k] = (t1[k] || 0) + tallies[k];
+    });
+    return { t1: t1, t2: t2 };
+  }
 
   function buildUI() {
     cards.forEach(function (card) {
@@ -663,42 +683,55 @@
       var sec = secOf(card);
       var row = document.createElement("div");
       row.className = "vote-row";
-      var btn = document.createElement("button");
-      btn.className = "votebtn";
-      btn.type = "button";
+      var b1 = document.createElement("button");
+      b1.className = "votebtn";
+      b1.type = "button";
+      var b2 = document.createElement("button");
+      b2.className = "votebtn second";
+      b2.type = "button";
       var count = document.createElement("span");
       count.className = "vote-count";
-      row.appendChild(btn);
+      row.appendChild(b1);
+      row.appendChild(b2);
       row.appendChild(count);
       card.appendChild(row);
       var tagEl = card.querySelector(".tag");
       var metaEl = card.querySelector(".meta");
       var descEl = card.querySelector(".desc");
       rows[shop] = {
-        btn: btn, count: count, sec: sec,
+        b1: b1, b2: b2, count: count, sec: sec,
         info: [tagEl ? tagEl.textContent.trim() : "", metaEl ? metaEl.textContent.replace(/\s+/g, " ").trim() : ""].filter(Boolean).join("｜"),
         desc: descEl ? descEl.textContent.trim() : ""
       };
-      btn.addEventListener("click", function () { vote(shop, sec); });
+      b1.addEventListener("click", function () { vote(shop, sec, 1); });
+      b2.addEventListener("click", function () { vote(shop, sec, 2); });
     });
     votebar.hidden = false;
   }
 
   function render(tallies) {
-    var total = 0;
-    Object.keys(tallies).forEach(function (k) { total += tallies[k]; });
+    var s = splitTallies(tallies);
+    var n1 = 0, n2 = 0;
+    Object.keys(s.t1).forEach(function (k) { n1 += s.t1[k]; });
+    Object.keys(s.t2).forEach(function (k) { n2 += s.t2[k]; });
     Object.keys(rows).forEach(function (shop) {
-      var n = tallies[shop] || 0;
-      var mine = myVotes[rows[shop].sec] === shop;
-      rows[shop].btn.textContent = mine ? "✓ 投票済み（取消は再タップ）" : "🗳️ この店に投票";
-      rows[shop].btn.classList.toggle("voted", mine);
-      rows[shop].count.innerHTML = n > 0 ? "現在 <b>" + n + "</b> 票" : "まだ票なし";
+      var r = rows[shop];
+      var c1 = s.t1[shop] || 0, c2 = s.t2[shop] || 0;
+      var pt = c1 * 2 + c2;
+      var mine1 = myVotes[r.sec][1] === shop;
+      var mine2 = myVotes[r.sec][2] === shop;
+      r.b1.textContent = mine1 ? "✓ あなたの第一希望" : "◎ 第一希望にする";
+      r.b2.textContent = mine2 ? "✓ あなたの第二希望" : "○ 第二希望にする";
+      r.b1.classList.toggle("voted", mine1);
+      r.b2.classList.toggle("voted", mine2);
+      r.count.innerHTML = pt > 0 ? "◎" + c1 + "・○" + c2 + "（<b>" + pt + "pt</b>）" : "まだ票なし";
     });
-    votetotal.textContent = total > 0 ? " 現在の総票数: " + total + "票" : "";
-    renderResults(tallies, total);
+    votetotal.textContent = (n1 + n2) > 0 ? " 現在: ◎" + n1 + "票・○" + n2 + "票" : "";
+    renderResults(tallies);
   }
 
-  function renderResults(tallies, total) {
+  function renderResults(tallies) {
+    var s = splitTallies(tallies);
     var box = document.getElementById("voteresults");
     var list = document.getElementById("resultlist");
     box.hidden = false;
@@ -708,16 +741,19 @@
       var label = g[0], sec = g[1];
       var ranked = Object.keys(rows)
         .filter(function (shop) { return rows[shop].sec === sec; })
-        .map(function (shop) { return { shop: shop, n: tallies[shop] || 0 }; })
-        .filter(function (r) { return r.n > 0; })
-        .sort(function (a, b) { return b.n - a.n; });
+        .map(function (shop) {
+          var c1 = s.t1[shop] || 0, c2 = s.t2[shop] || 0;
+          return { shop: shop, c1: c1, c2: c2, pt: c1 * 2 + c2 };
+        })
+        .filter(function (r) { return r.pt > 0; })
+        .sort(function (a, b) { return b.pt - a.pt || b.c1 - a.c1; });
       if (ranked.length === 0) return;
       any = true;
       var h = document.createElement("div");
       h.className = "result-group-title" + (sec === "dinner" ? " night" : "");
       h.textContent = label;
       list.appendChild(h);
-      var max = ranked[0].n;
+      var max = ranked[0].pt;
       ranked.forEach(function (r) {
         var row = document.createElement("button");
         row.className = "result-row" + (sec === "dinner" ? " night" : "");
@@ -725,19 +761,19 @@
         var name = document.createElement("span");
         name.className = "result-name";
         name.textContent = r.shop;
-        if (myVotes[sec] === r.shop) {
+        if (myVotes[sec][1] === r.shop || myVotes[sec][2] === r.shop) {
           var mine = document.createElement("span");
           mine.className = "mine";
-          mine.textContent = "← あなたの票";
+          mine.textContent = myVotes[sec][1] === r.shop ? "← あなたの◎" : "← あなたの○";
           name.appendChild(mine);
         }
         var num = document.createElement("span");
         num.className = "result-num";
-        num.textContent = r.n + "票";
+        num.textContent = "◎" + r.c1 + "・○" + r.c2 + "｜" + r.pt + "pt";
         var bar = document.createElement("span");
         bar.className = "result-bar";
         var fill = document.createElement("i");
-        fill.style.width = Math.round(r.n / max * 100) + "%";
+        fill.style.width = Math.round(r.pt / max * 100) + "%";
         bar.appendChild(fill);
         row.appendChild(name);
         row.appendChild(num);
@@ -770,27 +806,45 @@
   }
 
   function setBusy(b) {
-    Object.keys(rows).forEach(function (s) { rows[s].btn.disabled = b; });
+    Object.keys(rows).forEach(function (s) { rows[s].b1.disabled = b; rows[s].b2.disabled = b; });
   }
 
-  function vote(shop, sec) {
+  function post(sec, rank, shop) {
+    return fetch(API, { method: "POST", headers: { "Content-Type": "text/plain" }, body: JSON.stringify({ client: clientFor(sec, rank), shop: valueFor(rank, shop) }) })
+      .then(function (r) { return r.json(); });
+  }
+
+  function vote(shop, sec, rank) {
     if (!clientId) return;
-    var next = (myVotes[sec] === shop) ? "__CLEAR__" : shop;
+    var ops = [];
+    if (myVotes[sec][rank] === shop) {
+      ops.push([rank, "__CLEAR__", null]);
+    } else {
+      var other = rank === 1 ? 2 : 1;
+      if (myVotes[sec][other] === shop) ops.push([other, "__CLEAR__", null]);
+      ops.push([rank, shop, shop]);
+    }
     setBusy(true);
-    fetch(API, { method: "POST", headers: { "Content-Type": "text/plain" }, body: JSON.stringify({ client: clientFor(sec), shop: next }) })
-      .then(function (r) { return r.json(); })
-      .then(function (res) {
-        if (res && res.ok) {
-          myVotes[sec] = (next === "__CLEAR__") ? null : shop;
-          try {
-            if (myVotes[sec]) localStorage.setItem(LS_KEY[sec], myVotes[sec]);
-            else localStorage.removeItem(LS_KEY[sec]);
-          } catch (e) {}
-          render(res.tallies || {});
-        }
-      })
-      .catch(function () {})
-      .then(function () { setBusy(false); });
+    var chain = Promise.resolve(null);
+    ops.forEach(function (op) {
+      chain = chain.then(function () {
+        return post(sec, op[0], op[1]).then(function (res) {
+          if (res && res.ok) {
+            myVotes[sec][op[0]] = op[2];
+            try {
+              if (op[2]) localStorage.setItem(LS_KEY[sec][op[0]], op[2]);
+              else localStorage.removeItem(LS_KEY[sec][op[0]]);
+            } catch (e) {}
+            return res;
+          }
+          return null;
+        });
+      });
+    });
+    chain.then(function (res) {
+      if (res && res.ok) render(res.tallies || {});
+      setBusy(false);
+    }).catch(function () { setBusy(false); });
   }
 
   function refresh() {
