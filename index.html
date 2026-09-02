@@ -823,7 +823,18 @@
 
   function post(sec, rank, shop) {
     return fetch(API, { method: "POST", headers: { "Content-Type": "text/plain" }, body: JSON.stringify({ client: clientFor(sec, rank), shop: valueFor(rank, shop) }) })
-      .then(function (r) { return r.json(); });
+      .then(function (r) { return r.text(); })
+      .then(function (tx) { return JSON.parse(tx); });
+  }
+
+  function fetchTallies() {
+    return fetch(API)
+      .then(function (r) { return r.text(); })
+      .then(function (tx) {
+        var res = JSON.parse(tx);
+        if (!res || !res.ok) throw new Error("bad response");
+        return res.tallies || {};
+      });
   }
 
   function vote(shop, sec, rank) {
@@ -860,19 +871,22 @@
   }
 
   function refresh() {
-    fetch(API).then(function (r) { return r.json(); }).then(function (res) {
-      if (res && res.ok) render(res.tallies || {});
-    }).catch(function () {});
+    fetchTallies().then(function (tallies) { render(tallies); }).catch(function () {});
   }
 
   if (!clientId) return;
-  fetch(API).then(function (r) { return r.json(); }).then(function (res) {
-    if (res && res.ok) {
+  var initTries = 0;
+  function init() {
+    fetchTallies().then(function (tallies) {
       buildUI();
-      render(res.tallies || {});
+      render(tallies);
       setInterval(refresh, 30000);
-    }
-  }).catch(function () {});
+    }).catch(function () {
+      initTries++;
+      setTimeout(init, Math.min(30000, 3000 * initTries));
+    });
+  }
+  init();
 })();
 </script>
 </html>
