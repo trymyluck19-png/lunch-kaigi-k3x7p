@@ -17,6 +17,11 @@
     --green-deep: #245a40;
     --green-wash: #e9f0ea;
     --gold: #b98a2f;
+    --night: #414e94;
+    --night-deep: #333f7a;
+    --night-wash: #eaecf7;
+    --night-line: #ccd2ea;
+    --card-night: #fafaff;
   }
   @media (prefers-color-scheme: dark) {
     :root:not([data-theme="light"]) {
@@ -29,6 +34,11 @@
       --green-deep: #8cccab;
       --green-wash: #24352b;
       --gold: #d4a94f;
+      --night: #8d9be0;
+      --night-deep: #aab8f0;
+      --night-wash: #252a45;
+      --night-line: #3a4166;
+      --card-night: #1f2337;
     }
   }
   :root[data-theme="dark"] {
@@ -41,6 +51,11 @@
     --green-deep: #8cccab;
     --green-wash: #24352b;
     --gold: #d4a94f;
+    --night: #8d9be0;
+    --night-deep: #aab8f0;
+    --night-wash: #252a45;
+    --night-line: #3a4166;
+    --card-night: #1f2337;
   }
   body {
     background: var(--paper);
@@ -157,6 +172,23 @@
   }
   .sec-note { font-size: 13px; color: var(--ink-soft); margin: 0 0 16px; }
   .gmark { color: var(--gold); font-weight: 700; }
+
+  /* 夜の部: 藍色テーマ */
+  .sec-head.night { border-left-color: var(--night); }
+  .card[data-sec="dinner"] { background: var(--card-night); border-color: var(--night-line); }
+  .card[data-sec="dinner"] .tag { color: var(--night-deep); border-color: var(--night); }
+  .card[data-sec="dinner"] a.btn { background: var(--night); }
+  .card[data-sec="dinner"] a.btn:hover { background: var(--night-deep); }
+  .card[data-sec="dinner"] a.btn.ghost { background: transparent; color: var(--night-deep); border-color: var(--night); }
+  .card[data-sec="dinner"] .vote-row { border-top-color: var(--night-line); }
+  .card[data-sec="dinner"] button.votebtn { color: var(--night-deep); border-color: var(--night); background: var(--card-night); }
+  .card[data-sec="dinner"] button.votebtn:hover { background: var(--night-wash); }
+  .card[data-sec="dinner"] button.votebtn.voted { background: var(--night); color: var(--card-night); }
+  .result-group-title.night { color: var(--night-deep); }
+  .result-row.night .result-info { color: var(--night-deep); }
+  .result-row.night .result-name .mine { color: var(--night-deep); }
+  .result-row.night .result-bar { background: var(--night-wash); }
+  .result-row.night .result-bar i { background: var(--night); }
 </style>
 
 <div class="wrap">
@@ -180,7 +212,7 @@
     <div id="resultlist"></div>
   </div>
 
-  <h2 class="sec-head">昼の部｜神保町ランチ</h2>
+  <h2 class="sec-head">☀️ 昼の部｜神保町ランチ</h2>
   <p class="sec-note">明大駿河台キャンパスから徒歩7分圏・12:30ごろ入店。</p>
 
   <div class="card">
@@ -193,7 +225,7 @@
       <span>御茶ノ水駅2分 <strong>／ 明大から徒歩約5分</strong></span>
       <span>ランチ <strong>¥6,000〜8,000（コース）</strong></span>
     </div>
-    <p class="desc">御茶ノ水の本格イタリアン。今回の候補で最高評価。ちゃんとしたコースでゆっくり祝いたい・贅沢したい会ならここ一択。</p>
+    <p class="desc">御茶ノ水の本格イタリアンで、今回の全候補中で食べログ最高評価（3.60）。パスタを軸にしたコース仕立てで、素材使いと丁寧な仕事に定評があります。落ち着いた大人の空間なので、誕生日や何かのお祝いを兼ねた会にぴったり。予算は他より上がりますが「せっかく6人集まるなら一度ちゃんとした店で」という時の贅沢枠。土曜昼にゆっくり2時間コースを楽しむイメージの店です。</p>
     <div class="actions">
       <a class="btn" href="https://www.google.com/maps/search/?api=1&query=701+御茶ノ水+イタリアン" target="_blank" rel="noopener">Googleマップで見る</a>
       <a class="btn ghost" href="https://tabelog.com/tokyo/A1310/A131002/13286520/" target="_blank" rel="noopener">食べログ（予約）</a>
@@ -210,7 +242,7 @@
       <span>神保町駅1分 <strong>／ 明大から徒歩約5分</strong></span>
       <span>ランチ <strong>¥1,000〜2,000</strong></span>
     </div>
-    <p class="desc">自家製スパイスのスリランカカレーと旬素材の副菜。カレー激戦区・神保町でも頭ひとつ抜けた評価の実力店。落ち着いた空間。</p>
+    <p class="desc">自家製調合スパイスのスリランカカレー専門店。ワンプレートにカレーと旬素材の副菜が数種盛られ、混ぜながら味の変化を楽しむスタイルです。日本一のカレー激戦区・神保町で3.5超え（3.52）は本物の証拠で、「丁寧に作られたカレー」と口コミでも評判。カレー屋としては珍しく落ち着いた空間で、会話もしやすい。スパイス好き・カレー好きが1人でもいるなら最有力候補です。</p>
     <div class="actions">
       <a class="btn" href="https://www.google.com/maps/search/?api=1&query=メメントモリ+神保町" target="_blank" rel="noopener">Googleマップで見る</a>
       <a class="btn ghost" href="https://tabelog.com/tokyo/A1310/A131003/13279292/" target="_blank" rel="noopener">食べログ（予約）</a>
@@ -227,7 +259,7 @@
       <span>神保町駅1分 <strong>／ 明大から徒歩約5分</strong></span>
       <span>ランチ <strong>¥1,000〜2,000</strong></span>
     </div>
-    <p class="desc">1946年創業、神保町を代表する老舗中華。個室もあり6人でわいわい取り分けるならここが一番楽。上海蟹で有名な本格派。</p>
+    <p class="desc">1946年創業、神保町を代表する老舗上海中華。「神保町の老舗中華といえば3本の指に入る」と言われる格の店で、直輸入の上海蟹と厳選紹興酒で有名です。昼は麺類や定食が手頃な価格で食べられ、夜の高級感に比べてランチはぐっと入りやすい。6人なら大皿を取り分けるスタイルが一番楽で、個室利用や貸切にも対応。世代を問わず外さない、幹事として一番安心な選択肢です。</p>
     <div class="actions">
       <a class="btn" href="https://www.google.com/maps/search/?api=1&query=新世界菜館+神保町" target="_blank" rel="noopener">Googleマップで見る</a>
       <a class="btn ghost" href="https://tabelog.com/tokyo/A1310/A131003/13309279/" target="_blank" rel="noopener">食べログ（予約）</a>
@@ -244,7 +276,7 @@
       <span>神保町駅1分 <strong>／ 明大から徒歩約5分</strong></span>
       <span>ランチ <strong>¥1,000〜2,000</strong></span>
     </div>
-    <p class="desc">老舗天ぷら屋に生まれ育った店主の店。揚げたて天ぷら定食が手頃に食べられる。和食気分ならここ。</p>
+    <p class="desc">浅草の老舗天ぷら屋に生まれ育った店主が「気軽に使える天ぷらと割烹」をコンセプトに開いた店。席で注文してから揚げる天ぷら定食が1,000円台で食べられ、天ぷらをおそばに合わせる変更もできます。昼のピークを過ぎても賑わう人気ぶりで、地元客の支持が厚い。ちゃんとした和食を手頃に、という時のベストで、年上の人や和食派がいる会に向いています。</p>
     <div class="actions">
       <a class="btn" href="https://www.google.com/maps/search/?api=1&query=浅草割烹+天とよ+神保町" target="_blank" rel="noopener">Googleマップで見る</a>
       <a class="btn ghost" href="https://tabelog.com/tokyo/A1310/A131003/13229844/" target="_blank" rel="noopener">食べログ（予約）</a>
@@ -261,7 +293,7 @@
       <span>神保町駅2分 <strong>／ 明大から徒歩約5分</strong></span>
       <span>ランチ <strong>〜¥1,000</strong></span>
     </div>
-    <p class="desc">刀削麺と麻婆豆腐が名物の本格四川。ボリューム満点でコスパ最強クラス。個室あり。安く済ませたいならここ。</p>
+    <p class="desc">目の前で麺を削り出す刀削麺と、熱々の麻婆豆腐が名物の本格四川料理店。口コミでは「圧倒的ボリューム」「巨大餃子に驚愕」と量の多さが名物級で、ランチは1,000円以下からとコスパは候補中最強クラスです。個室もあり、運が良ければ6人で落ち着いて座れます。ガッツリ食べたい・でも安く済ませたい、という時の一番の現実解。辛いものが得意でない人にも非辛メニューがあります。</p>
     <div class="actions">
       <a class="btn" href="https://www.google.com/maps/search/?api=1&query=四川料理刀削麺+川府+神保町" target="_blank" rel="noopener">Googleマップで見る</a>
       <a class="btn ghost" href="https://tabelog.com/tokyo/A1310/A131003/13146994/" target="_blank" rel="noopener">食べログ（予約）</a>
@@ -278,7 +310,7 @@
       <span>神保町駅すぐ <strong>／ 明大から徒歩約5分</strong></span>
       <span>ランチ <strong>¥1,000〜2,000</strong></span>
     </div>
-    <p class="desc">横浜の名店が神保町に進出したビリヤニ専門店。タミルの味そのままでリピーター続出。スパイス好きが多いなら候補。</p>
+    <p class="desc">「横浜の隠れた名店」と呼ばれた南インド料理店が、カレー激戦区・神保町に進出したビリヤニ専門店。南インド・タミルの味を現地のまま出すスタイルで、「超絶美味しいビリヤニ」とリピーターが続出しています。スパイス炊き込みご飯であるビリヤニは日本ではまだ食べられる店が少なく、話のネタとしても面白い一皿。駅出口すぐの好立地。メメントモリと並ぶスパイス枠の本命で、エスニック好きが多い会なら盛り上がります。</p>
     <div class="actions">
       <a class="btn" href="https://www.google.com/maps/search/?api=1&query=ルシ+インドビリヤニ+神保町" target="_blank" rel="noopener">Googleマップで見る</a>
       <a class="btn ghost" href="https://tabelog.com/tokyo/A1310/A131003/13308625/" target="_blank" rel="noopener">食べログ（予約）</a>
@@ -295,7 +327,7 @@
       <span>神保町駅4分 <strong>／ 明大から徒歩約6分</strong></span>
       <span>ランチ <strong>¥1,000〜2,000</strong></span>
     </div>
-    <p class="desc">天井高6mの開放的な空間が気持ちいいレストラン。雰囲気重視・ゆっくり話したいならここが一番。記念日利用も多い。</p>
+    <p class="desc">天井高6mの吹き抜けが気持ちいい、フレンチ×イタリアンのレストラン。神保町とは思えない開放的な空間で、接待・パーティ・記念日利用が多い店です。ランチはコース仕立てでも1,000円台からと手頃で、鮮魚のメインを選べる日も。席間にゆとりがあるので、6人でゆっくり喋りたい会に一番向いています。「安く食べる」より「気持ちよく過ごす」を優先するならここ。女性メンバーが多い会にも好評なタイプの店です。</p>
     <div class="actions">
       <a class="btn" href="https://www.google.com/maps/search/?api=1&query=GARB+pintino+神保町" target="_blank" rel="noopener">Googleマップで見る</a>
       <a class="btn ghost" href="https://tabelog.com/tokyo/A1310/A131003/13182226/" target="_blank" rel="noopener">食べログ（予約）</a>
@@ -312,7 +344,7 @@
       <span>神保町駅4分 <strong>／ 明大から徒歩約6分</strong></span>
       <span>ランチ <strong>¥1,000〜2,000</strong></span>
     </div>
-    <p class="desc">メディア紹介多数のコスパ抜群ビストロ。気軽なイタリアンで外れなし。※12:30ちょうどの枠は埋まりがち、13:00〜は空きあり。</p>
+    <p class="desc">テレビなどメディア紹介多数の創作イタリアンビストロ。「コスパ抜群」が代名詞で、料理もドリンクも値段以上と評判です。かしこまらず気軽に使える雰囲気で、女子会や仲間内の集まりの定番。ランチも1,000円台で満足度が高く、大きく外すことがないタイプの店です。※注意点：12:30ちょうどの枠は埋まりがちで、13:00〜なら空きあり。時間を少し後ろにずらせるならアリな選択肢。</p>
     <div class="actions">
       <a class="btn" href="https://www.google.com/maps/search/?api=1&query=BISTRO+Kuu+神保町" target="_blank" rel="noopener">Googleマップで見る</a>
       <a class="btn ghost" href="https://tabelog.com/tokyo/A1310/A131003/13119785/" target="_blank" rel="noopener">食べログ（予約）</a>
@@ -329,7 +361,7 @@
       <span>神保町駅3分 <strong>／ 明大から徒歩約6分</strong></span>
       <span>ランチ <strong>¥1,000〜2,000</strong></span>
     </div>
-    <p class="desc">千葉のブランド豚・鮮魚・九十九里の蛤とワインの店。半個室あり。しっかりした洋食ランチが食べたい人向け。</p>
+    <p class="desc">千葉県のブランド豚、朝獲れ鮮魚、九十九里の蛤など「千葉の食材×ワイン」がコンセプトのイタリアンレストラン。豚肉のローストなど肉料理のボリュームに定評があり、しっかりした洋食ランチが1,000円台で食べられます。半個室席があるので、6人で周りを気にせず話したい時にも使いやすい。産地が明確な食材で安心感があり、味重視派と雰囲気重視派の両方を満足させられるバランス型の店です。</p>
     <div class="actions">
       <a class="btn" href="https://www.google.com/maps/search/?api=1&query=グランタイム+神保町" target="_blank" rel="noopener">Googleマップで見る</a>
       <a class="btn ghost" href="https://tabelog.com/tokyo/A1310/A131003/13266718/" target="_blank" rel="noopener">食べログ（予約）</a>
@@ -345,7 +377,7 @@
     <div class="meta">
       <span>神保町駅4分 <strong>／ 明大から徒歩約6分</strong></span>
     </div>
-    <p class="desc">オリジナリティのある料理が評判の個性派バル。離れ席もあり、貸切・団体対応に慣れている。</p>
+    <p class="desc">「オリジナリティのあるメニュー」と口コミで評判の個性派バル・ビストロ。名物のカリカリのフライドポテトなど、他の店にない一皿が楽しめます。メインの店舗とは別に「離れ」の席もあり、貸切や団体対応に慣れているのでグループ利用がスムーズ。ゴリゴリの専門料理店ではなくジャンルレスにつまめるので、食の好みがバラバラな6人でもまとまりやすい。ワイン片手に昼からゆるっと、という空気感の店です。</p>
     <div class="actions">
       <a class="btn" href="https://www.google.com/maps/search/?api=1&query=edge+神保町+バル" target="_blank" rel="noopener">Googleマップで見る</a>
       <a class="btn ghost" href="https://tabelog.com/tokyo/A1310/A131003/13208588/" target="_blank" rel="noopener">食べログ（予約）</a>
@@ -362,7 +394,7 @@
       <span>神保町駅2分 <strong>／ 明大から徒歩約5分</strong></span>
       <span>ランチ <strong>¥1,000〜2,000</strong></span>
     </div>
-    <p class="desc">神戸牛ハンバーグのランチセットがお得と評判の洋食店。がっつり肉気分ならここ。</p>
+    <p class="desc">神戸牛ハンバーグが名物の洋食店。ハンバーグはグラム数を3種類から選べて、ランチセットにはミニサラダ・スープ・ライスまたは石窯パンが付き、「この内容でこの値段はお得でビックリ」と口コミで評判です。夜はワインバー的にも使われる小綺麗な店なので、洋食屋といっても雰囲気は良め。がっつり肉気分の人が多いならここが本命。焼き上がりに時間がかかることがあるので、予約時間ちょうどに揃うのがおすすめです。</p>
     <div class="actions">
       <a class="btn" href="https://www.google.com/maps/search/?api=1&query=厨+神保町本店" target="_blank" rel="noopener">Googleマップで見る</a>
       <a class="btn ghost" href="https://tabelog.com/tokyo/A1310/A131003/13253277/" target="_blank" rel="noopener">食べログ（予約）</a>
@@ -378,7 +410,7 @@
     <div class="meta">
       <span>神保町駅1分 <strong>／ 明大から徒歩約5分</strong></span>
     </div>
-    <p class="desc">焼きたての肉を切り分けてくれるブラジリアンBBQ食べ放題。6人でイベント感を出したいならいちばん盛り上がる。</p>
+    <p class="desc">スタッフが焼きたての肉塊をテーブルまで運び、目の前で切り分けてくれるブラジリアンBBQ「シュラスコ」の食べ放題レストラン。牛・豚・鶏と何種類もの部位が次々回ってくるスタイルで、食べ放題なので予算が読みやすいのも幹事的に安心です。とにかくイベント感・お祭り感があるので、6人の集まりを「ただのランチ」以上にしたいならいちばん盛り上がる選択肢。肉好きが多い会、初対面メンバーがいて話のきっかけが欲しい会にも向いています。</p>
     <div class="actions">
       <a class="btn" href="https://www.google.com/maps/search/?api=1&query=シュラスコレストラン+ALEGRIA+神保町" target="_blank" rel="noopener">Googleマップで見る</a>
       <a class="btn ghost" href="https://tabelog.com/tokyo/A1310/A131003/13285386/" target="_blank" rel="noopener">食べログ（予約）</a>
@@ -394,7 +426,7 @@
     <div class="meta">
       <span>神保町駅1分 <strong>／ 明大から徒歩約5分</strong></span>
     </div>
-    <p class="desc">沖縄料理とクラフトビールのバル。昼から軽く飲みたい会ならここ。</p>
+    <p class="desc">沖縄のクラフトビールと定番の沖縄料理が楽しめる琉球バル。神保町駅1分の好アクセスで、昼から軽く一杯やりたい会にちょうどいい脱力系の店です。沖縄料理はみんなでつまめる小皿が多く、6人でシェアしながらだらだら喋るのに向いたスタイル。「ランチを食べる」というより「昼飲みを楽しむ」寄りの選択肢なので、午後の予定がゆるい日ならアリ。旅行気分をちょっと味わえるのも楽しいところです。</p>
     <div class="actions">
       <a class="btn" href="https://www.google.com/maps/search/?api=1&query=ガチマヤ+神保町" target="_blank" rel="noopener">Googleマップで見る</a>
       <a class="btn ghost" href="https://tabelog.com/tokyo/A1310/A131003/13189860/" target="_blank" rel="noopener">食べログ（予約）</a>
@@ -410,7 +442,7 @@
     <div class="meta">
       <span>神保町駅4分 <strong>／ 明大から徒歩約6分</strong></span>
     </div>
-    <p class="desc">昔ながらのホルモン焼肉店。焼肉ランチを徒歩圏で、という時の現実解。</p>
+    <p class="desc">御茶ノ水で長く続く、昔ながらのホルモン焼肉店。気取りのない大衆的な店構えで、新鮮なホルモンと定番の焼肉を気軽に楽しめます。「土曜の昼から徒歩圏で焼肉を焼きたい」という時、このエリアでは貴重な現実解。網を囲むスタイルは自然と会話が生まれるので、6人の距離を縮めるにはもってこいです。服に匂いがつくのだけは覚悟の上で。安く済ませつつ満足感を出したい肉派の会向きです。</p>
     <div class="actions">
       <a class="btn" href="https://www.google.com/maps/search/?api=1&query=ホルモン焼肉+モリちゃん+御茶ノ水" target="_blank" rel="noopener">Googleマップで見る</a>
       <a class="btn ghost" href="https://tabelog.com/tokyo/A1310/A131003/13022363/" target="_blank" rel="noopener">食べログ（予約）</a>
@@ -426,7 +458,7 @@
     <div class="meta">
       <span>神保町駅1分 <strong>／ 明大から徒歩約5分</strong></span>
     </div>
-    <p class="desc">神保町の人気インドカレー店。ナン食べ放題系の満足ランチ。カレー派の対抗馬。</p>
+    <p class="desc">神保町駅1分の人気インドカレー店。大ぶりの焼きたてナンと数種類から選べるカレーのセットが看板で、ボリューム重視派の満足度が高いタイプです。スリランカのメメントモリ、南インドのルシと並ぶ「カレー御三家」の北インド枠で、日本人に一番なじみのある王道のカレーはここ。バターチキンなどマイルド系も充実しているので、辛いものが苦手な人がいる会ではカレー枠の中でいちばん安全な選択肢になります。</p>
     <div class="actions">
       <a class="btn" href="https://www.google.com/maps/search/?api=1&query=サンガム+神保町" target="_blank" rel="noopener">Googleマップで見る</a>
       <a class="btn ghost" href="https://tabelog.com/tokyo/A1310/A131003/13180530/" target="_blank" rel="noopener">食べログ（予約）</a>
@@ -442,7 +474,7 @@
     <div class="meta">
       <span>神保町駅2分 <strong>／ 明大から徒歩約5分</strong></span>
     </div>
-    <p class="desc">気軽に使えるフレンチビストロ。ビストロ枠でGARBやKuuが取れない時の好選択肢。</p>
+    <p class="desc">神保町駅2分の気軽なフレンチビストロ。フレンチといっても構えた店ではなく、ビストロ定番の肉料理やワインをカジュアルに楽しむスタイルです。こぢんまりした店ならではの距離感の近い接客も魅力で、常連が付いているタイプの店。GARB pintinoやBISTRO Kuuと同じ「洋食ビストロ枠」で、それらの予約が埋まった時の有力な代替候補になります。気負わずフレンチ気分を味わいたい会にどうぞ。</p>
     <div class="actions">
       <a class="btn" href="https://www.google.com/maps/search/?api=1&query=oliver+神保町+ビストロ" target="_blank" rel="noopener">Googleマップで見る</a>
       <a class="btn ghost" href="https://tabelog.com/tokyo/A1310/A131003/13237452/" target="_blank" rel="noopener">食べログ（予約）</a>
@@ -459,14 +491,14 @@
       <span>神保町駅30秒 <strong>／ 明大から徒歩約5分</strong></span>
       <span>ランチ <strong>¥1,000〜2,000</strong></span>
     </div>
-    <p class="desc">旬の魚が自慢の海鮮居酒屋。魚気分の時の候補。駅いちばん近。</p>
+    <p class="desc">神保町駅30秒、候補中いちばん駅近の海鮮居酒屋。旬の魚の仕入れが自慢で、名物はお通しを「刺身」か「天ぷら」から1人ずつ選べるユニークなシステム（しめ鯖が美味しいと口コミで評判）。日本酒の品揃えも良く、昼からちょっと一杯つけたい会にも対応できます。魚気分の時の第一候補で、雨の日でもほぼ濡れずに着けるアクセスの良さも地味に強い。和食×酒でゆるっと集まりたい6人に向いています。</p>
     <div class="actions">
       <a class="btn" href="https://www.google.com/maps/search/?api=1&query=酒と魚+海神+神保町" target="_blank" rel="noopener">Googleマップで見る</a>
       <a class="btn ghost" href="https://tabelog.com/tokyo/A1310/A131003/13290549/" target="_blank" rel="noopener">食べログ（予約）</a>
     </div>
   </div>
 
-  <h2 class="sec-head">夜の部｜渋谷ディナー</h2>
+  <h2 class="sec-head night">🌙 夜の部｜渋谷ディナー</h2>
   <p class="sec-note">9/5（土）18:00・6名・渋谷駅周辺。夜予算¥4,000〜6,000の同価格帯で「大箱・賑わい・Google口コミ多数」の店を厳選。Google評価は2026-09-02時点。</p>
 
   <div class="card" data-sec="dinner">
@@ -480,7 +512,7 @@
       <span>Google <strong class="gmark">4.5★ (1,539件)</strong></span>
       <span>夜 <strong>¥5,000〜6,000</strong></span>
     </div>
-    <p class="desc">瀬戸内直送魚介のスペインバル、74席の大箱で活気系。全9品コースが42%offの4,500円（飲み放題2h付きは6,000円）とコースがお得。個室は12名〜なのでテーブル席。</p>
+    <p class="desc">2010年創業、瀬戸内海直送の天然魚介を使うスペインバル。74席（テーブル56席）の大箱で、満席時はスペイン語も飛び交う本場さながらの活気になります。立地は渋谷南口のオフィス街側で「渋谷とは思えない落ち着いたゾーン」なのも安心。コースが強力で、タパス5種＋アヒージョ＋三元豚ロースト＋魚介パエリアの全9品が42%offの4,500円、2時間飲み放題付きで6,000円。9月は1皿で2つの味が楽しめる限定「セパレートパエリア」も。個室は12名〜なのでテーブル席利用、混雑時は2時間制です。</p>
     <div class="actions">
       <a class="btn" href="https://www.google.com/maps/search/?api=1&query=ラス+ボカス+渋谷" target="_blank" rel="noopener">Googleマップで見る</a>
       <a class="btn ghost" href="https://tabelog.com/tokyo/A1303/A130301/13117243/" target="_blank" rel="noopener">食べログ（予約）</a>
@@ -498,7 +530,7 @@
       <span>Google <strong class="gmark">4.7★ (3,204件)</strong></span>
       <span>夜 <strong>¥4,000〜5,000</strong></span>
     </div>
-    <p class="desc">渋谷の夜景を見下ろすラグジュアリー大箱ダイニング。Google 4.7★×3,200件超は渋谷でも別格。この価格でこの空間はかなりお得。特別感重視ならここ。</p>
+    <p class="desc">道玄坂上のビル15階から渋谷の夜景を見下ろす、ラグジュアリーな大箱ダイニング。天井の高い劇場のような内装で、席に着いた瞬間「おっ」と声が出るタイプの店です。Google 4.7★×3,200件超は渋谷全体でも別格の数字で、デート・記念日の定番として長年愛されてきました。料理はイタリアンを軸にしたコンチネンタル系。これだけの空間で夜予算¥4,000〜5,000は正直かなりお得です。ワイワイ系ではなく「特別感・非日常」を求める会の最有力。窓際席は予約時にリクエストを。</p>
     <div class="actions">
       <a class="btn" href="https://www.google.com/maps/search/?api=1&query=Legato+渋谷" target="_blank" rel="noopener">Googleマップで見る</a>
       <a class="btn ghost" href="https://tabelog.com/tokyo/A1303/A130301/13005405/" target="_blank" rel="noopener">食べログ（予約）</a>
@@ -516,7 +548,7 @@
       <span>Google <strong class="gmark">4.2★ (921件)</strong></span>
       <span>夜 <strong>¥4,000〜5,000</strong></span>
     </div>
-    <p class="desc">樽生24種＋缶50種以上の大箱クラフトビアバー。フードはバーガー系。ワイワイ度は候補中いちばん。ビール好きが多いならここ。</p>
+    <p class="desc">樽生24種＋缶・瓶50種以上を揃える大箱クラフトビアバー。オーストラリアのクラフトビールに特に強く、飲み比べながら順に試していく楽しみ方ができます。フードはハンバーガーなどアメリカンな肉系でビールとの相性抜群。海外のパブっぽいラフでガヤガヤした空気なので、ワイワイ度は夜候補の中でいちばんです。ビール好きが2人以上いるならここが正解。逆に、落ち着いて話したい会やビールを飲まない人が多い会には不向きなので、メンバー次第でハマり方が変わる店です。</p>
     <div class="actions">
       <a class="btn" href="https://www.google.com/maps/search/?api=1&query=Goodbeer+faucets+渋谷" target="_blank" rel="noopener">Googleマップで見る</a>
       <a class="btn ghost" href="https://tabelog.com/tokyo/A1303/A130301/13135142/" target="_blank" rel="noopener">食べログ（予約）</a>
@@ -534,7 +566,7 @@
       <span>Google <strong class="gmark">3.9★ (722件)</strong></span>
       <span>夜 <strong>¥5,000〜6,000</strong></span>
     </div>
-    <p class="desc">異国のバザールみたいな非日常空間の大箱。料理も見た目が華やかで写真映え系。雰囲気のインパクトなら候補中No.1。</p>
+    <p class="desc">渋谷ストリーム前、「異国情緒漂う非日常空間」がコンセプトの地中海・アラビア料理レストラン。中東のバザールに迷い込んだような内装で、雰囲気のインパクトは夜候補の中でNo.1です。料理は中東・地中海の皿を中心に見た目が華やかで写真映えし、「古来の製法のワイン」という珍しいドリンクも売り。日本ではなかなか食べる機会のないジャンルなので、「どこ行く？」の答えとして一番話のネタになります。駅直結レベルのアクセスで集合も楽。新しいもの好き・旅行好きのメンバーが多いなら盛り上がり確実です。</p>
     <div class="actions">
       <a class="btn" href="https://www.google.com/maps/search/?api=1&query=カールヴァーン+渋谷" target="_blank" rel="noopener">Googleマップで見る</a>
       <a class="btn ghost" href="https://tabelog.com/tokyo/A1303/A130301/13240295/" target="_blank" rel="noopener">食べログ（予約）</a>
@@ -552,7 +584,7 @@
       <span>Google <strong class="gmark">3.8★ (801件)</strong></span>
       <span>夜 <strong>¥5,000〜6,000</strong></span>
     </div>
-    <p class="desc">「バルセロナで一番おいしいパエリア」の店の東京店。駅直結で集合が楽。パエリア重視ならラス ボカスとの比較候補。</p>
+    <p class="desc">「バルセロナで一番おいしいパエリア」と言われる名店の東京店で、渋谷ストリーム内・駅直結という集合の楽さは全候補中トップ。バルセロナの海辺のレストランの雰囲気をそのまま持ち込んだ開放的な空間で、看板のパエリアは現地レシピの本格派です。同じスペイン×パエリアのラス ボカスと直接比較になる店で、「本場ブランドと駅直結」を取るならこちら、「コスパと活気」を取るならラス ボカス、という選び分け。Google評価3.8★とやや低めなのは観光客利用が多い立地柄も影響していそうです。</p>
     <div class="actions">
       <a class="btn" href="https://www.google.com/maps/search/?api=1&query=XIRINGUITO+Escriba+渋谷" target="_blank" rel="noopener">Googleマップで見る</a>
       <a class="btn ghost" href="https://tabelog.com/tokyo/A1303/A130301/13224292/" target="_blank" rel="noopener">食べログ（予約）</a>
@@ -570,7 +602,7 @@
       <span>Google <strong class="gmark">4.1★ (645件)</strong></span>
       <span>夜 <strong>¥5,000〜6,000</strong></span>
     </div>
-    <p class="desc">名物「のっけ寿司」（ウニ・カニ・アワビ）の賑わい海鮮酒場。恵比寿などに数店ある個人系グループ。和で行くならここ。</p>
+    <p class="desc">名物は酢飯の上にウニ・カニ・アワビなどを豪快に盛る「のっけ寿司」。ウニの焼きおにぎりなど酒が進む海鮮メニューが揃う、昔ながらの賑わい海鮮酒場です。恵比寿や下北沢などに数店舗ある個人系グループで、チェーンの味気なさはなく各店に常連が付いている人気店。飲み放題付きコースもあり、6人の飲み会フォーマットにそのままハマります。「渋谷で和食×日本酒でワイワイ」なら実質ここ一択。刺身好き・日本酒好きがいる会の本命です。</p>
     <div class="actions">
       <a class="btn" href="https://www.google.com/maps/search/?api=1&query=魚真+渋谷店" target="_blank" rel="noopener">Googleマップで見る</a>
       <a class="btn ghost" href="https://tabelog.com/tokyo/A1303/A130301/13001781/" target="_blank" rel="noopener">食べログ（予約）</a>
@@ -588,7 +620,7 @@
       <span>Google <strong class="gmark">4.3★ (360件)</strong></span>
       <span>夜 <strong>¥5,000〜6,000</strong></span>
     </div>
-    <p class="desc">本格薪窯ピッツァ×自然派ワインの人気イタリアン。箱は他よりやや小さめだが評価は安定して高い。</p>
+    <p class="desc">薪窯で一気に焼き上げる本格ナポリピッツァと自然派ワインの店。広島から直送されるこだわり食材を使った前菜や一品料理も評判で、Google 4.3★と評価は安定して高い実力店です。神泉駅3分と渋谷の喧騒から少し外れた立地で、騒がしすぎず適度に賑やか。箱は夜候補の他店よりやや小さめですが、その分アットホームな距離感があります。ピッツァを何枚か頼んでシェアするスタイルは6人と相性が良く、「みんな好きなものが違う」問題をピザが解決してくれる店です。</p>
     <div class="actions">
       <a class="btn" href="https://www.google.com/maps/search/?api=1&query=メリプリンチペッサ+渋谷" target="_blank" rel="noopener">Googleマップで見る</a>
       <a class="btn ghost" href="https://tabelog.com/tokyo/A1303/A130301/13112030/" target="_blank" rel="noopener">食べログ（予約）</a>
@@ -672,7 +704,7 @@
     box.hidden = false;
     list.textContent = "";
     var any = false;
-    [["昼の部（神保町ランチ）", "lunch"], ["夜の部（渋谷ディナー）", "dinner"]].forEach(function (g) {
+    [["☀️ 昼の部（神保町ランチ）", "lunch"], ["🌙 夜の部（渋谷ディナー）", "dinner"]].forEach(function (g) {
       var label = g[0], sec = g[1];
       var ranked = Object.keys(rows)
         .filter(function (shop) { return rows[shop].sec === sec; })
@@ -682,13 +714,13 @@
       if (ranked.length === 0) return;
       any = true;
       var h = document.createElement("div");
-      h.className = "result-group-title";
+      h.className = "result-group-title" + (sec === "dinner" ? " night" : "");
       h.textContent = label;
       list.appendChild(h);
       var max = ranked[0].n;
       ranked.forEach(function (r) {
         var row = document.createElement("button");
-        row.className = "result-row";
+        row.className = "result-row" + (sec === "dinner" ? " night" : "");
         row.type = "button";
         var name = document.createElement("span");
         name.className = "result-name";
