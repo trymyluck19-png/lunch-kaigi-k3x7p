@@ -122,6 +122,28 @@
   footer { margin-top: 36px; padding-top: 18px; border-top: 1px solid var(--line); font-size: 12px; color: var(--ink-soft); }
   footer a { color: var(--green-deep); }
 
+  #decided {
+    background: var(--card); border: 2px solid var(--gold); border-radius: 12px;
+    padding: 20px 22px; margin-bottom: 22px;
+  }
+  #decided h2 {
+    font-family: "Shippori Mincho", serif; font-size: 19px; margin: 0 0 12px;
+    color: var(--gold); letter-spacing: .05em;
+  }
+  #decided .plan { display: flex; gap: 10px; align-items: baseline; flex-wrap: wrap; margin: 6px 0; font-size: 14px; }
+  #decided .plan .when { font-weight: 700; white-space: nowrap; }
+  #decided .course-box {
+    background: var(--night-wash); border: 1px solid var(--night-line); border-radius: 8px;
+    padding: 14px 16px; margin-top: 12px; font-size: 13.5px; line-height: 1.7;
+  }
+  #decided .course-box h3 {
+    font-family: "Shippori Mincho", serif; font-size: 15px; margin: 0 0 8px;
+    color: var(--night-deep);
+  }
+  #decided .course-box ol { margin: 0 0 8px; padding-left: 20px; }
+  #decided .course-box li { margin-bottom: 2px; }
+  #decided .course-note { font-size: 12.5px; color: var(--ink-soft); margin: 8px 0 0; }
+
   #votebar {
     background: var(--green-wash); border: 1px solid var(--line); border-radius: 10px;
     padding: 12px 18px; margin-bottom: 20px; font-size: 13px; color: var(--green-deep);
@@ -207,6 +229,30 @@
   </header>
 
   <p class="note">9/2時点で食べログのネット予約に6名の空きがある店だけを載せています。評価が高い順。行きたい店が決まったら「食べログ（予約）」からそのまま予約できます。投票は昼・夜それぞれで◎第一希望と○第二希望を1つずつ選べます。</p>
+
+  <div id="decided">
+    <h2>🎉 決定しました！</h2>
+    <div class="plan"><span class="when">☀️ 昼 12:30</span><span><strong>四川料理刀削麺 川府</strong>（神保町駅2分）に現地集合。予約なしで直接入ります。刀削麺・麻婆豆腐などを各自好きに注文（〜¥1,000ほど）</span></div>
+    <div class="plan"><span class="when">🌙 夜 18:00</span><span><strong>ラス ボカス</strong>（渋谷駅東口8分）<strong>予約済み</strong>。会費は飲み放題込みで<strong>1人¥6,000</strong>です</span></div>
+
+    <div class="course-box">
+      <h3>🥘 夜のコース紹介｜豪華メイン＆パエリア堪能コース＋プレミアム飲み放題2時間（全9皿）</h3>
+      <ol>
+        <li><strong>本日のおすすめタパス5皿</strong>（例：瀬戸内直送 鮮魚のカルパッチョ／スペイン産生ハム／エビのラヴィゴットソース／タコと野菜のマリネ／ピスト・マンチェゴのパンタパス ※当日の仕入れで変わります）</li>
+        <li><strong>マッシュルームのアヒージョ</strong>（パン付き）</li>
+        <li><strong>ハーブ三元豚の自家製ローストポーク</strong></li>
+        <li><strong>魚介たっぷりパエリア</strong> → 仕切り鍋で2つの味が楽しめる<strong>セパレートパエリア</strong>をリクエスト済み（魚介・イカスミ・フラメンカから当日2種選択！）</li>
+        <li><strong>季節のパンナコッタ</strong></li>
+      </ol>
+      🍺 <strong>飲み放題（2時間・40種以上）</strong>：キリンハートランド生ビール／スペイン産スパークリング「カヴァ」／赤・白ワイン／スペインカクテル各種／ハイボール・ウイスキーなど。ノンアルカクテル10種＋ソフトドリンク6種もあるのでお酒を飲まない人も大丈夫
+      <p class="course-note">※通常¥9,200のコースが36%offの¥6,000。混雑時は2時間制。人数変更がある場合は前日9/4(金)18:00までに幹事へ連絡してください！</p>
+      <div class="actions" style="margin-top:12px;">
+        <a class="btn" href="https://tabelog.com/tokyo/A1303/A130301/13117243/party/239940658" target="_blank" rel="noopener" style="background:var(--night);">コースの詳細（食べログ）</a>
+        <a class="btn ghost" href="https://www.google.com/maps/search/?api=1&query=ラス+ボカス+渋谷" target="_blank" rel="noopener" style="color:var(--night-deep);border-color:var(--night);">店の場所（マップ）</a>
+        <a class="btn ghost" href="https://www.google.com/maps/search/?api=1&query=四川料理刀削麺+川府+神保町" target="_blank" rel="noopener">昼・川府の場所（マップ）</a>
+      </div>
+    </div>
+  </div>
 
   <div id="votebar" hidden>🗳️ <strong>◎第一希望</strong>と<strong>○第二希望</strong>を、昼の部・夜の部それぞれで1つずつ選んでください（匿名・あとから変更/取消OK）。集計は◎2点・○1点のポイント制です。<span id="votetotal"></span></div>
 
