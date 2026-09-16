@@ -5,68 +5,94 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex">
 <title>誕生日会ディナー</title>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@600;700&family=Zen+Kaku+Gothic+New:wght@400;500;700&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Kaisei+Decol:wght@700&family=Zen+Maru+Gothic:wght@400;500;700&display=swap">
 <style>
   :root {
-    --paper: #f3f4f8;
-    --card: #fbfbff;
-    --ink: #22243a;
-    --ink-soft: #5c5f78;
-    --line: #d9dcec;
-    --night: #414e94;
-    --night-deep: #333f7a;
-    --night-wash: #e9ebf7;
-    --gold: #b98a2f;
+    --paper: #fff6f1;
+    --card: #ffffff;
+    --ink: #3a2a2f;
+    --ink-soft: #7a6169;
+    --line: #f2d9dc;
+    --night: #e8556d;
+    --night-deep: #c23e56;
+    --night-wash: #fde9ec;
+    --gold: #d9a23a;
+    --mint: #3fb3a3;
+    --c1: #ff8fa3; --c2: #ffd166; --c3: #7ed6c5; --c4: #a7b7ff;
   }
   @media (prefers-color-scheme: dark) {
     :root:not([data-theme="light"]) {
-      --paper: #171a2a;
-      --card: #1f2337;
-      --ink: #e9eaf4;
-      --ink-soft: #a5a8c2;
-      --line: #3a4166;
-      --night: #8d9be0;
-      --night-deep: #aab8f0;
-      --night-wash: #252a45;
-      --gold: #d4a94f;
+      --paper: #241a1f;
+      --card: #31242b;
+      --ink: #f6e9ec;
+      --ink-soft: #c4a9b2;
+      --line: #4a353d;
+      --night: #ff8aa0;
+      --night-deep: #ffb3c1;
+      --night-wash: #45303a;
+      --gold: #e9b95a;
+      --mint: #6fd3c4;
+      --c1: #ff8fa3; --c2: #ffd166; --c3: #7ed6c5; --c4: #a7b7ff;
     }
   }
   :root[data-theme="dark"] {
-    --paper: #171a2a;
-    --card: #1f2337;
-    --ink: #e9eaf4;
-    --ink-soft: #a5a8c2;
-    --line: #3a4166;
-    --night: #8d9be0;
-    --night-deep: #aab8f0;
-    --night-wash: #252a45;
-    --gold: #d4a94f;
+    --paper: #241a1f;
+    --card: #31242b;
+    --ink: #f6e9ec;
+    --ink-soft: #c4a9b2;
+    --line: #4a353d;
+    --night: #ff8aa0;
+    --night-deep: #ffb3c1;
+    --night-wash: #45303a;
+    --gold: #e9b95a;
+    --mint: #6fd3c4;
+    --c1: #ff8fa3; --c2: #ffd166; --c3: #7ed6c5; --c4: #a7b7ff;
   }
   body {
-    background: var(--paper);
+    background-color: var(--paper);
+    background-image:
+      radial-gradient(circle at 12% 8%, var(--c1) 0 4px, transparent 5px),
+      radial-gradient(circle at 78% 4%, var(--c2) 0 3px, transparent 4px),
+      radial-gradient(circle at 92% 18%, var(--c3) 0 4px, transparent 5px),
+      radial-gradient(circle at 6% 32%, var(--c4) 0 3px, transparent 4px),
+      radial-gradient(circle at 60% 12%, var(--c1) 0 3px, transparent 4px),
+      radial-gradient(circle at 30% 3%, var(--c3) 0 3px, transparent 4px),
+      radial-gradient(circle at 88% 40%, var(--c2) 0 3px, transparent 4px),
+      radial-gradient(circle at 4% 60%, var(--c1) 0 4px, transparent 5px),
+      radial-gradient(circle at 95% 70%, var(--c4) 0 3px, transparent 4px),
+      radial-gradient(circle at 10% 88%, var(--c2) 0 4px, transparent 5px),
+      radial-gradient(circle at 90% 92%, var(--c1) 0 3px, transparent 4px),
+      radial-gradient(circle at 50% 98%, var(--c3) 0 3px, transparent 4px);
+    background-repeat: no-repeat;
+    background-attachment: fixed;
     color: var(--ink);
-    font-family: "Zen Kaku Gothic New", "Hiragino Kaku Gothic ProN", sans-serif;
-    line-height: 1.65;
+    font-family: "Zen Maru Gothic", "Hiragino Maru Gothic ProN", sans-serif;
+    line-height: 1.7;
     -webkit-font-smoothing: antialiased;
   }
   .wrap { max-width: 680px; margin: 0 auto; padding: 40px 20px 64px; }
-  header { border-bottom: 3px double var(--line); padding-bottom: 24px; margin-bottom: 8px; }
-  .eyebrow { font-size: 12px; letter-spacing: .18em; color: var(--night); font-weight: 700; margin-bottom: 10px; }
-  h1 {
-    font-family: "Shippori Mincho", "Hiragino Mincho ProN", serif;
-    font-size: clamp(28px, 6vw, 38px); font-weight: 700;
-    margin: 0 0 14px; letter-spacing: .04em; text-wrap: balance;
+  header { text-align: center; padding: 26px 18px 22px; margin-bottom: 14px; background: var(--card); border: 2px solid var(--line); border-radius: 18px; position: relative; overflow: hidden; }
+  header::before {
+    content: ""; position: absolute; left: 0; right: 0; top: 0; height: 8px;
+    background: repeating-linear-gradient(90deg, var(--c1) 0 24px, var(--c2) 24px 48px, var(--c3) 48px 72px, var(--c4) 72px 96px);
   }
-  .conds { display: flex; flex-wrap: wrap; gap: 8px; }
-  .cond { background: var(--night-wash); color: var(--night-deep); border-radius: 999px; padding: 4px 14px; font-size: 13px; font-weight: 500; }
-  .note { font-size: 13px; color: var(--ink-soft); margin: 16px 0 20px; }
+  .eyebrow { font-size: 12px; letter-spacing: .22em; color: var(--night); font-weight: 700; margin: 6px 0 10px; }
+  h1 {
+    font-family: "Kaisei Decol", "Hiragino Mincho ProN", serif;
+    font-size: clamp(30px, 7vw, 42px); font-weight: 700;
+    margin: 0 0 14px; letter-spacing: .04em; text-wrap: balance;
+    color: var(--night-deep);
+  }
+  .conds { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; }
+  .cond { background: var(--night-wash); color: var(--night-deep); border-radius: 999px; padding: 4px 14px; font-size: 13px; font-weight: 700; }
+  .note { font-size: 13.5px; color: var(--ink-soft); margin: 16px 0 20px; }
 
   #votebar {
-    background: var(--night-wash); border: 1px solid var(--line); border-radius: 10px;
+    background: var(--night-wash); border: 1px dashed var(--night); border-radius: 14px;
     padding: 12px 18px; margin-bottom: 20px; font-size: 13px; color: var(--night-deep);
   }
-  #voteresults { background: var(--card); border: 1px solid var(--line); border-radius: 10px; padding: 16px 20px; margin-bottom: 24px; }
-  #voteresults h2 { font-family: "Shippori Mincho", serif; font-size: 16px; margin: 0 0 10px; color: var(--night-deep); letter-spacing: .04em; }
+  #voteresults { background: var(--card); border: 2px solid var(--line); border-radius: 16px; padding: 16px 20px; margin-bottom: 24px; }
+  #voteresults h2 { font-family: "Kaisei Decol", serif; font-size: 18px; margin: 0 0 10px; color: var(--night-deep); letter-spacing: .04em; }
   .result-row {
     display: grid; grid-template-columns: 1fr auto; align-items: center;
     gap: 4px 12px; padding: 8px 0; cursor: pointer; border: 0; background: none;
@@ -74,49 +100,50 @@
   }
   .result-row:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; border-radius: 4px; }
   .result-name { font-size: 15px; font-weight: 700; }
-  .result-name .mine { font-size: 11px; color: var(--night-deep); font-weight: 700; margin-left: 6px; }
+  .result-name .mine { font-size: 11px; color: var(--night); font-weight: 700; margin-left: 6px; }
   .result-num { font-size: 13px; color: var(--gold); font-weight: 700; font-variant-numeric: tabular-nums; white-space: nowrap; }
-  .result-bar { grid-column: 1 / -1; height: 6px; border-radius: 3px; background: var(--night-wash); overflow: hidden; }
-  .result-bar i { display: block; height: 100%; background: var(--night); border-radius: 3px; transition: width .4s ease; }
+  .result-bar { grid-column: 1 / -1; height: 8px; border-radius: 4px; background: var(--night-wash); overflow: hidden; }
+  .result-bar i { display: block; height: 100%; background: linear-gradient(90deg, var(--night), var(--gold)); border-radius: 4px; transition: width .4s ease; }
   .result-info { grid-column: 1 / -1; font-size: 12px; color: var(--night-deep); font-weight: 500; }
   .result-desc { grid-column: 1 / -1; font-size: 12px; color: var(--ink-soft); line-height: 1.55; }
   #voteresults .empty { font-size: 13px; color: var(--ink-soft); margin: 0; }
 
-  .card { background: var(--card); border: 1px solid var(--line); border-radius: 10px; padding: 20px 22px; margin-bottom: 14px; }
+  .card { background: var(--card); border: 2px solid var(--line); border-radius: 16px; padding: 20px 22px; margin-bottom: 16px; box-shadow: 0 4px 0 var(--night-wash); }
   .card-top { display: flex; align-items: baseline; gap: 12px; flex-wrap: wrap; }
-  .shop { font-family: "Shippori Mincho", serif; font-size: 20px; font-weight: 700; margin: 0; letter-spacing: .02em; }
+  .shop { font-family: "Kaisei Decol", serif; font-size: 21px; font-weight: 700; margin: 0; letter-spacing: .02em; color: var(--night-deep); }
   .score { font-variant-numeric: tabular-nums; font-weight: 700; font-size: 15px; color: var(--gold); white-space: nowrap; }
   .score::before { content: "★"; font-size: 13px; margin-right: 2px; }
-  .tag { font-size: 11px; font-weight: 700; letter-spacing: .08em; color: var(--night-deep); border: 1px solid var(--night); border-radius: 4px; padding: 1px 8px; white-space: nowrap; }
+  .tag { font-size: 11px; font-weight: 700; letter-spacing: .08em; color: var(--night-deep); background: var(--night-wash); border-radius: 999px; padding: 2px 10px; white-space: nowrap; }
   .meta { display: flex; flex-wrap: wrap; gap: 6px 14px; font-size: 13px; color: var(--ink-soft); margin: 8px 0 10px; }
-  .meta strong { color: var(--ink); font-weight: 500; }
+  .meta strong { color: var(--ink); font-weight: 700; }
   .gmark { color: var(--gold); font-weight: 700; }
   .desc { font-size: 14px; margin: 0 0 14px; }
   .actions { display: flex; gap: 10px; flex-wrap: wrap; }
-  a.btn { display: inline-block; text-decoration: none; font-size: 13px; font-weight: 700; padding: 8px 18px; border-radius: 6px; background: var(--night); color: var(--card); }
+  a.btn { display: inline-block; text-decoration: none; font-size: 13px; font-weight: 700; padding: 8px 18px; border-radius: 999px; background: var(--night); color: #fff; }
   a.btn:hover { background: var(--night-deep); }
   a.btn:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
-  a.btn.ghost { background: transparent; color: var(--night-deep); border: 1px solid var(--night); }
+  a.btn.ghost { background: transparent; color: var(--night-deep); border: 2px solid var(--night); }
 
-  .vote-row { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; margin-top: 12px; padding-top: 12px; border-top: 1px dashed var(--line); }
-  button.votebtn { font-family: inherit; font-size: 13px; font-weight: 700; cursor: pointer; padding: 8px 18px; border-radius: 999px; background: var(--card); color: var(--night-deep); border: 1.5px solid var(--night); }
+  .vote-row { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; margin-top: 12px; padding-top: 12px; border-top: 2px dotted var(--line); }
+  button.votebtn { font-family: inherit; font-size: 13px; font-weight: 700; cursor: pointer; padding: 8px 18px; border-radius: 999px; background: var(--card); color: var(--night-deep); border: 2px solid var(--night); }
   button.votebtn:hover { background: var(--night-wash); }
   button.votebtn:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
-  button.votebtn.voted { background: var(--night); color: var(--card); }
+  button.votebtn.voted { background: var(--night); color: #fff; }
   button.votebtn:disabled { opacity: .5; cursor: wait; }
-  button.votebtn.second { border-style: dashed; font-weight: 500; }
-  button.votebtn.second.voted { border-style: solid; background: var(--night-wash); color: var(--night-deep); }
+  button.votebtn.second { border-style: dashed; border-color: var(--gold); color: var(--gold); font-weight: 700; }
+  button.votebtn.second:hover { background: var(--night-wash); }
+  button.votebtn.second.voted { border-style: solid; background: var(--gold); color: #fff; }
   .vote-count { font-size: 13px; color: var(--ink-soft); font-variant-numeric: tabular-nums; }
   .vote-count b { color: var(--gold); font-size: 15px; }
 
-  footer { margin-top: 36px; padding-top: 18px; border-top: 1px solid var(--line); font-size: 12px; color: var(--ink-soft); }
+  footer { margin-top: 36px; padding-top: 18px; border-top: 2px dotted var(--line); font-size: 12px; color: var(--ink-soft); text-align: center; }
   footer a { color: var(--night-deep); }
 </style>
 
 <div class="wrap">
   <header>
-    <div class="eyebrow">船橋駅周辺・個室ディナー</div>
-    <h1>🎂 誕生日会ディナー</h1>
+    <div class="eyebrow">🎈 HAPPY BIRTHDAY 🎈</div>
+    <h1>🎂 誕生日会ディナー 🎉</h1>
     <div class="conds">
       <span class="cond">9/21（月・祝）18:00</span>
       <span class="cond">8名</span>
@@ -130,7 +157,7 @@
   <div id="votebar" hidden>🗳️ <strong>◎第一希望</strong>と<strong>○第二希望</strong>を1つずつ。<span id="votetotal"></span></div>
 
   <div id="voteresults" hidden>
-    <h2>現在の投票結果</h2>
+    <h2>🎊 現在の投票結果</h2>
     <div id="resultlist"></div>
   </div>
 
