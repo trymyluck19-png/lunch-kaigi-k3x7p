@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>船橋ディナー会議</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@600;700&family=Zen+Kaku+Gothic+New:wght@400;500;700&display=swap">
+<style>
+  :root {
+    --paper: #f3f4f8;
+    --card: #fbfbff;
+    --ink: #22243a;
+    --ink-soft: #5c5f78;
+    --line: #d9dcec;
+    --night: #414e94;
+    --night-deep: #333f7a;
+    --night-wash: #e9ebf7;
+    --gold: #b98a2f;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --paper: #171a2a;
+      --card: #1f2337;
+      --ink: #e9eaf4;
+      --ink-soft: #a5a8c2;
+      --line: #3a4166;
+      --night: #8d9be0;
+      --night-deep: #aab8f0;
+      --night-wash: #252a45;
+      --gold: #d4a94f;
+    }
+  }
+  :root[data-theme="dark"] {
+    --paper: #171a2a;
+    --card: #1f2337;
+    --ink: #e9eaf4;
+    --ink-soft: #a5a8c2;
+    --line: #3a4166;
+    --night: #8d9be0;
+    --night-deep: #aab8f0;
+    --night-wash: #252a45;
+    --gold: #d4a94f;
+  }
+  body {
+    background: var(--paper);
+    color: var(--ink);
+    font-family: "Zen Kaku Gothic New", "Hiragino Kaku Gothic ProN", sans-serif;
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+  }
+  .wrap { max-width: 680px; margin: 0 auto; padding: 40px 20px 64px; }
+  header { border-bottom: 3px double var(--line); padding-bottom: 24px; margin-bottom: 8px; }
+  .eyebrow { font-size: 12px; letter-spacing: .18em; color: var(--night); font-weight: 700; margin-bottom: 10px; }
+  h1 {
+    font-family: "Shippori Mincho", "Hiragino Mincho ProN", serif;
+    font-size: clamp(28px, 6vw, 38px); font-weight: 700;
+    margin: 0 0 14px; letter-spacing: .04em; text-wrap: balance;
+  }
+  .conds { display: flex; flex-wrap: wrap; gap: 8px; }
+  .cond { background: var(--night-wash); color: var(--night-deep); border-radius: 999px; padding: 4px 14px; font-size: 13px; font-weight: 500; }
+  .note { font-size: 13px; color: var(--ink-soft); margin: 16px 0 20px; }
+
+  #votebar {
+    background: var(--night-wash); border: 1px solid var(--line); border-radius: 10px;
+    padding: 12px 18px; margin-bottom: 20px; font-size: 13px; color: var(--night-deep);
+  }
+  #voteresults { background: var(--card); border: 1px solid var(--line); border-radius: 10px; padding: 16px 20px; margin-bottom: 24px; }
+  #voteresults h2 { font-family: "Shippori Mincho", serif; font-size: 16px; margin: 0 0 10px; color: var(--night-deep); letter-spacing: .04em; }
+  .result-row {
+    display: grid; grid-template-columns: 1fr auto; align-items: center;
+    gap: 4px 12px; padding: 8px 0; cursor: pointer; border: 0; background: none;
+    width: 100%; text-align: left; font-family: inherit; color: var(--ink);
+  }
+  .result-row:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; border-radius: 4px; }
+  .result-name { font-size: 15px; font-weight: 700; }
+  .result-name .mine { font-size: 11px; color: var(--night-deep); font-weight: 700; margin-left: 6px; }
+  .result-num { font-size: 13px; color: var(--gold); font-weight: 700; font-variant-numeric: tabular-nums; white-space: nowrap; }
+  .result-bar { grid-column: 1 / -1; height: 6px; border-radius: 3px; background: var(--night-wash); overflow: hidden; }
+  .result-bar i { display: block; height: 100%; background: var(--night); border-radius: 3px; transition: width .4s ease; }
+  .result-info { grid-column: 1 / -1; font-size: 12px; color: var(--night-deep); font-weight: 500; }
+  .result-desc { grid-column: 1 / -1; font-size: 12px; color: var(--ink-soft); line-height: 1.55; }
+  #voteresults .empty { font-size: 13px; color: var(--ink-soft); margin: 0; }
+
+  .card { background: var(--card); border: 1px solid var(--line); border-radius: 10px; padding: 20px 22px; margin-bottom: 14px; }
+  .card-top { display: flex; align-items: baseline; gap: 12px; flex-wrap: wrap; }
+  .shop { font-family: "Shippori Mincho", serif; font-size: 20px; font-weight: 700; margin: 0; letter-spacing: .02em; }
+  .score { font-variant-numeric: tabular-nums; font-weight: 700; font-size: 15px; color: var(--gold); white-space: nowrap; }
+  .score::before { content: "★"; font-size: 13px; margin-right: 2px; }
+  .tag { font-size: 11px; font-weight: 700; letter-spacing: .08em; color: var(--night-deep); border: 1px solid var(--night); border-radius: 4px; padding: 1px 8px; white-space: nowrap; }
+  .meta { display: flex; flex-wrap: wrap; gap: 6px 14px; font-size: 13px; color: var(--ink-soft); margin: 8px 0 10px; }
+  .meta strong { color: var(--ink); font-weight: 500; }
+  .gmark { color: var(--gold); font-weight: 700; }
+  .desc { font-size: 14px; margin: 0 0 14px; }
+  .actions { display: flex; gap: 10px; flex-wrap: wrap; }
+  a.btn { display: inline-block; text-decoration: none; font-size: 13px; font-weight: 700; padding: 8px 18px; border-radius: 6px; background: var(--night); color: var(--card); }
+  a.btn:hover { background: var(--night-deep); }
+  a.btn:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+  a.btn.ghost { background: transparent; color: var(--night-deep); border: 1px solid var(--night); }
+
+  .vote-row { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; margin-top: 12px; padding-top: 12px; border-top: 1px dashed var(--line); }
+  button.votebtn { font-family: inherit; font-size: 13px; font-weight: 700; cursor: pointer; padding: 8px 18px; border-radius: 999px; background: var(--card); color: var(--night-deep); border: 1.5px solid var(--night); }
+  button.votebtn:hover { background: var(--night-wash); }
+  button.votebtn:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+  button.votebtn.voted { background: var(--night); color: var(--card); }
+  button.votebtn:disabled { opacity: .5; cursor: wait; }
+  button.votebtn.second { border-style: dashed; font-weight: 500; }
+  button.votebtn.second.voted { border-style: solid; background: var(--night-wash); color: var(--night-deep); }
+  .vote-count { font-size: 13px; color: var(--ink-soft); font-variant-numeric: tabular-nums; }
+  .vote-count b { color: var(--gold); font-size: 15px; }
+
+  footer { margin-top: 36px; padding-top: 18px; border-top: 1px solid var(--line); font-size: 12px; color: var(--ink-soft); }
+  footer a { color: var(--night-deep); }
+</style>
+
+<div class="wrap">
+  <header>
+    <div class="eyebrow">船橋駅周辺・個室ディナー</div>
+    <h1>船橋ディナー会議</h1>
+    <div class="conds">
+      <span class="cond">9/21（月・祝）18:00</span>
+      <span class="cond">8名</span>
+      <span class="cond">個室・半個室</span>
+      <span class="cond">駅徒歩5分以内</span>
+    </div>
+  </header>
+
+  <p class="note">3軒とも9/16時点で食べログのネット予約に「9/21 18:00・8名」の空きあり、8人で入れる個室（半個室）を確認済み。◎第一希望と○第二希望を選んでください（匿名・変更/取消OK・◎2点/○1点）。</p>
+
+  <div id="votebar" hidden>🗳️ <strong>◎第一希望</strong>と<strong>○第二希望</strong>を1つずつ。<span id="votetotal"></span></div>
+
+  <div id="voteresults" hidden>
+    <h2>現在の投票結果</h2>
+    <div id="resultlist"></div>
+  </div>
+
+  <div class="card">
+    <div class="card-top">
+      <h2 class="shop">路地ノ家 らんたん</h2>
+      <span class="score">3.33</span>
+      <span class="tag">窯焼きピザ・古民家酒場</span>
+    </div>
+    <div class="meta">
+      <span>京成船橋3分／JR船橋5分</span>
+      <span>Google <strong class="gmark">4.5★ (175件)</strong></span>
+      <span>夜 <strong>¥3,000〜4,000</strong></span>
+      <span>個室 <strong>8席の完全個室（8人ぴったり）</strong></span>
+    </div>
+    <p class="desc">古民家を「大正ロマン×和洋折衷」でリノベーションした窯焼きピザ酒場。450度の石窯で焼くモチモチ食感のピザが500円〜で10種類以上、卓上コンロで自分好みに仕上げるオリジナルアヒージョも名物です。2階座敷はトルコランプの幻想的な照明、鹿の剥製が印象的な完全個室は8席でちょうど8人。ドリンクは100種類以上。コースは2時間飲み放題付き4,500円（9〜10品）／5,000円（10品）。チャージ¥429。Google 4.5★と満足度が高く、3軒の中で一番安くワイワイできる本命候補。</p>
+    <div class="actions">
+      <a class="btn" href="https://www.google.com/maps/search/?api=1&query=路地ノ家+らんたん+船橋" target="_blank" rel="noopener">Googleマップで見る</a>
+      <a class="btn ghost" href="https://tabelog.com/chiba/A1202/A120201/12058401/" target="_blank" rel="noopener">食べログ（予約）</a>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-top">
+      <h2 class="shop">FES by asobi</h2>
+      <span class="score">3.36</span>
+      <span class="tag">炭火創作・グランピング風</span>
+    </div>
+    <div class="meta">
+      <span>京成船橋2分／JR船橋4分</span>
+      <span>Google <strong class="gmark">4.3★ (897件)</strong></span>
+      <span>夜 <strong>¥3,000〜4,000</strong></span>
+      <span>個室 <strong>掘りごたつの半個室（10〜24名用区画）</strong></span>
+    </div>
+    <p class="desc">「船橋でグランピング」がテーマ。オーナー自らDIYで作り上げた独特の内装で、130席の大箱です。炭焼きをメインにした創作料理と豊洲市場直送の鮮魚が売りで、生牡蠣も食べられます。コースは2時間飲み放題付きで4,500円（8品）／5,000円（9品）／6,000円グランピングコース（10品）。誕生日などのイベント演出も得意で、とにかく「気分が上がる」系のお店。8名だと掘りごたつの半個室区画（本来10〜24名用）を使う形になるので、予約時にリクエストが必要。Google口コミ897件で4.3★は船橋屈指の支持率。お通し¥390。</p>
+    <div class="actions">
+      <a class="btn" href="https://www.google.com/maps/search/?api=1&query=FES+by+asobi+船橋" target="_blank" rel="noopener">Googleマップで見る</a>
+      <a class="btn ghost" href="https://tabelog.com/chiba/A1202/A120201/12042820/" target="_blank" rel="noopener">食べログ（予約）</a>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-top">
+      <h2 class="shop">船橋ワイン食堂 八十郎 本町一丁目</h2>
+      <span class="score">3.40</span>
+      <span class="tag">一軒家イタリアン・ワイン</span>
+    </div>
+    <div class="meta">
+      <span>京成船橋3分／JR船橋5分</span>
+      <span>Google <strong class="gmark">3.8★ (47件)</strong></span>
+      <span>夜 <strong>¥4,000〜5,000</strong></span>
+      <span>個室 <strong>2階に3〜12名の個室（8名OK・個室代¥330/人）</strong></span>
+    </div>
+    <p class="desc">船橋で人気の「八十郎商店」の3号店。一軒家の2階に個室があり、イタリア産小麦を使った独自の窯焼きピザと、自社輸入ワインをリーズナブルに楽しめます。コースは2時間飲み放題付きで、特選A5黒毛和牛の炭火焼きが入った5,000円（6品）／人気No.1の6,000円（7品）／7,000円の和牛コース（8品）。3軒の中では一番「レストラン寄り」で落ち着いた雰囲気なので、料理をちゃんと食べたい会向き。混雑時は席の希望に添えない場合があるため早めの予約推奨。テーブルチャージ¥220＋個室代¥330。Google口コミはまだ47件と少なめ（3.8★）。</p>
+    <div class="actions">
+      <a class="btn" href="https://www.google.com/maps/search/?api=1&query=船橋ワイン食堂八十郎+本町一丁目" target="_blank" rel="noopener">Googleマップで見る</a>
+      <a class="btn ghost" href="https://tabelog.com/chiba/A1202/A120201/12060486/" target="_blank" rel="noopener">食べログ（予約）</a>
+    </div>
+  </div>
+
+  <footer>
+    評価・空席は2026年9月16日時点の食べログ／Googleマップより。予約前にリンク先で最新の空席を確認してください。投票は匿名です（端末ごとに◎○各1票）。
+  </footer>
+</div>
+
+<script>
+(function () {
+  var API = "https://script.google.com/macros/s/AKfycbwm7Hv-I9AQZBmZ6ZqZgzM8DzqWEjXQ8awSERFpLQaVhVyxQ1Xt6YhOd8OuvuZD3wTX/exec";
+  var NS = "fb";
+  var cards = Array.prototype.slice.call(document.querySelectorAll(".card"));
+  var votebar = document.getElementById("votebar");
+  var votetotal = document.getElementById("votetotal");
+
+  var clientId = null;
+  var myVotes = { 1: null, 2: null };
+  var LS_KEY = { 1: "funabashi_vote_1", 2: "funabashi_vote_2" };
+  try {
+    clientId = localStorage.getItem("lunch_vote_cid");
+    if (!clientId) {
+      clientId = Array.prototype.map.call(crypto.getRandomValues(new Uint8Array(16)), function (b) { return b.toString(16).padStart(2, "0"); }).join("");
+      localStorage.setItem("lunch_vote_cid", clientId);
+    }
+    myVotes[1] = localStorage.getItem(LS_KEY[1]);
+    myVotes[2] = localStorage.getItem(LS_KEY[2]);
+  } catch (e) { clientId = null; }
+
+  var rows = {};
+  function shopName(card) { return card.querySelector(".shop").textContent.trim(); }
+  function clientFor(rank) { return clientId + "_" + NS + (rank === 2 ? "2" : ""); }
+  function valueFor(rank, shop) { return shop === "__CLEAR__" ? shop : (rank === 2 ? NS + "2:" : NS + ":") + shop; }
+  function splitTallies(tallies) {
+    var t1 = {}, t2 = {};
+    Object.keys(tallies).forEach(function (k) {
+      if (k.indexOf(NS + "2:") === 0) t2[k.slice(NS.length + 2)] = (t2[k.slice(NS.length + 2)] || 0) + tallies[k];
+      else if (k.indexOf(NS + ":") === 0) t1[k.slice(NS.length + 1)] = (t1[k.slice(NS.length + 1)] || 0) + tallies[k];
+    });
+    return { t1: t1, t2: t2 };
+  }
+  function shortDesc(t) {
+    var parts = t.split("。"), out = "";
+    for (var i = 0; i < parts.length; i++) {
+      if (!parts[i]) continue;
+      var next = out + parts[i] + "。";
+      if (out && next.length > 85) break;
+      out = next;
+      if (out.length > 60) break;
+    }
+    return out || t.slice(0, 80);
+  }
+
+  function buildUI() {
+    cards.forEach(function (card) {
+      var shop = shopName(card);
+      var row = document.createElement("div");
+      row.className = "vote-row";
+      var b1 = document.createElement("button"); b1.className = "votebtn"; b1.type = "button";
+      var b2 = document.createElement("button"); b2.className = "votebtn second"; b2.type = "button";
+      var count = document.createElement("span"); count.className = "vote-count";
+      row.appendChild(b1); row.appendChild(b2); row.appendChild(count);
+      card.appendChild(row);
+      var tagEl = card.querySelector(".tag"), metaEl = card.querySelector(".meta"), descEl = card.querySelector(".desc");
+      rows[shop] = {
+        b1: b1, b2: b2, count: count,
+        info: [tagEl ? tagEl.textContent.trim() : "", metaEl ? metaEl.textContent.replace(/\s+/g, " ").trim() : ""].filter(Boolean).join("｜"),
+        desc: descEl ? shortDesc(descEl.textContent.trim()) : ""
+      };
+      b1.addEventListener("click", function () { vote(shop, 1); });
+      b2.addEventListener("click", function () { vote(shop, 2); });
+    });
+    votebar.hidden = false;
+  }
+
+  function render(tallies) {
+    var s = splitTallies(tallies);
+    var n1 = 0, n2 = 0;
+    Object.keys(s.t1).forEach(function (k) { n1 += s.t1[k]; });
+    Object.keys(s.t2).forEach(function (k) { n2 += s.t2[k]; });
+    Object.keys(rows).forEach(function (shop) {
+      var r = rows[shop];
+      var c1 = s.t1[shop] || 0, c2 = s.t2[shop] || 0, pt = c1 * 2 + c2;
+      var mine1 = myVotes[1] === shop, mine2 = myVotes[2] === shop;
+      r.b1.textContent = mine1 ? "✓ あなたの第一希望" : "◎ 第一希望にする";
+      r.b2.textContent = mine2 ? "✓ あなたの第二希望" : "○ 第二希望にする";
+      r.b1.classList.toggle("voted", mine1);
+      r.b2.classList.toggle("voted", mine2);
+      r.count.innerHTML = pt > 0 ? "◎" + c1 + "・○" + c2 + "（<b>" + pt + "pt</b>）" : "まだ票なし";
+    });
+    votetotal.textContent = (n1 + n2) > 0 ? " 現在: ◎" + n1 + "票・○" + n2 + "票" : "";
+    renderResults(s);
+  }
+
+  function renderResults(s) {
+    var box = document.getElementById("voteresults");
+    var list = document.getElementById("resultlist");
+    box.hidden = false;
+    list.textContent = "";
+    var ranked = Object.keys(rows)
+      .map(function (shop) { var c1 = s.t1[shop] || 0, c2 = s.t2[shop] || 0; return { shop: shop, c1: c1, c2: c2, pt: c1 * 2 + c2 }; })
+      .filter(function (r) { return r.pt > 0; })
+      .sort(function (a, b) { return b.pt - a.pt || b.c1 - a.c1; });
+    if (ranked.length === 0) {
+      var p = document.createElement("p"); p.className = "empty";
+      p.textContent = "まだ投票がありません。◎と○を選んでください！";
+      list.appendChild(p);
+      return;
+    }
+    var max = ranked[0].pt;
+    ranked.forEach(function (r) {
+      var row = document.createElement("button"); row.className = "result-row"; row.type = "button";
+      var name = document.createElement("span"); name.className = "result-name"; name.textContent = r.shop;
+      if (myVotes[1] === r.shop || myVotes[2] === r.shop) {
+        var mine = document.createElement("span"); mine.className = "mine";
+        mine.textContent = myVotes[1] === r.shop ? "← あなたの◎" : "← あなたの○";
+        name.appendChild(mine);
+      }
+      var num = document.createElement("span"); num.className = "result-num"; num.textContent = "◎" + r.c1 + "・○" + r.c2 + "｜" + r.pt + "pt";
+      var bar = document.createElement("span"); bar.className = "result-bar";
+      var fill = document.createElement("i"); fill.style.width = Math.round(r.pt / max * 100) + "%"; bar.appendChild(fill);
+      row.appendChild(name); row.appendChild(num); row.appendChild(bar);
+      if (rows[r.shop].info) { var info = document.createElement("span"); info.className = "result-info"; info.textContent = rows[r.shop].info; row.appendChild(info); }
+      if (rows[r.shop].desc) { var d = document.createElement("span"); d.className = "result-desc"; d.textContent = rows[r.shop].desc; row.appendChild(d); }
+      row.addEventListener("click", function () {
+        var target = cards.filter(function (c) { return shopName(c) === r.shop; })[0];
+        if (target) target.scrollIntoView({ behavior: "smooth", block: "center" });
+      });
+      list.appendChild(row);
+    });
+  }
+
+  function setBusy(b) { Object.keys(rows).forEach(function (s) { rows[s].b1.disabled = b; rows[s].b2.disabled = b; }); }
+
+  function post(rank, shop) {
+    return fetch(API, { method: "POST", headers: { "Content-Type": "text/plain" }, body: JSON.stringify({ client: clientFor(rank), shop: valueFor(rank, shop) }) })
+      .then(function (r) { return r.text(); }).then(function (tx) { return JSON.parse(tx); });
+  }
+  function fetchTallies() {
+    return fetch(API).then(function (r) { return r.text(); }).then(function (tx) {
+      var res = JSON.parse(tx);
+      if (!res || !res.ok) throw new Error("bad response");
+      return res.tallies || {};
+    });
+  }
+
+  function vote(shop, rank) {
+    if (!clientId) return;
+    var ops = [];
+    if (myVotes[rank] === shop) {
+      ops.push([rank, "__CLEAR__", null]);
+    } else {
+      var other = rank === 1 ? 2 : 1;
+      if (myVotes[other] === shop) ops.push([other, "__CLEAR__", null]);
+      ops.push([rank, shop, shop]);
+    }
+    setBusy(true);
+    var chain = Promise.resolve(null);
+    ops.forEach(function (op) {
+      chain = chain.then(function () {
+        return post(op[0], op[1]).then(function (res) {
+          if (res && res.ok) {
+            myVotes[op[0]] = op[2];
+            try { if (op[2]) localStorage.setItem(LS_KEY[op[0]], op[2]); else localStorage.removeItem(LS_KEY[op[0]]); } catch (e) {}
+            return res;
+          }
+          return null;
+        });
+      });
+    });
+    chain.then(function (res) { if (res && res.ok) render(res.tallies || {}); setBusy(false); })
+      .catch(function () { setBusy(false); });
+  }
+
+  function refresh() { fetchTallies().then(function (t) { render(t); }).catch(function () {}); }
+
+  if (!clientId) return;
+  var initTries = 0;
+  function init() {
+    fetchTallies().then(function (t) { buildUI(); render(t); setInterval(refresh, 30000); })
+      .catch(function () { initTries++; setTimeout(init, Math.min(30000, 3000 * initTries)); });
+  }
+  init();
+})();
+</script>
+</html>
